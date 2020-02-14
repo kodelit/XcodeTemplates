@@ -2,6 +2,7 @@ import UIKit
 
 protocol ___VARIABLE_sceneName___DisplayLogic: class {
     func display(viewModel: ___VARIABLE_sceneName___.Something.ViewModel)
+    func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
 class ___VARIABLE_sceneName___Presenter: ___VARIABLE_sceneName___PresentationLogic {
