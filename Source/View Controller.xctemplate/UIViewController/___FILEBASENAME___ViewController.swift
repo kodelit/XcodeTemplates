@@ -1,7 +1,8 @@
 import UIKit
 
 protocol ___VARIABLE_sceneName___Assembling {
-    func resolve(_ :___VARIABLE_sceneName___ViewController)
+    func resolve(_: ___VARIABLE_sceneName___ViewController)
+    func loadSubviews(_: ___VARIABLE_sceneName___ViewController)
 }
 
 @objc protocol ___VARIABLE_sceneName___RoutingLogic {
@@ -12,7 +13,7 @@ protocol ___VARIABLE_sceneName___BusinessLogic {
     func handle(request: ___VARIABLE_sceneName___.Something.Request)
 }
 
-class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___, ___VARIABLE_sceneName___DisplayLogic {
+class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___ {
     var assembler: ___VARIABLE_sceneName___Assembling = ___VARIABLE_sceneName___Assembler()
     var interactor: ___VARIABLE_sceneName___BusinessLogic?
     var router: (NSObjectProtocol & ___VARIABLE_sceneName___RoutingLogic & ___VARIABLE_sceneName___DataPassing)?
@@ -58,10 +59,11 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assembler.loadSubviews(self)
 //        doSomething()
     }
 
-    // MARK: Do something
+    // MARK: Actions
 
     //@IBOutlet weak var nameTextField: UITextField!
 
@@ -69,37 +71,40 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     //    let request = ___VARIABLE_sceneName___.Something.Request()
     //    interactor?.handle(request: request)
     //}
+}
 
-    // MARK: - DisplayLogic
+// MARK: - DisplayLogic
 
+extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___DisplayLogic {
     func display(viewModel: ___VARIABLE_sceneName___.Something.ViewModel) {
         //nameTextField.text = viewModel.name
     }
 }
 
-
 // MARK: - Xcode Preview
 // Works from Xcode 11 and macOS 10.15
 
+//#if canImport(SwiftUI) && DEBUG
 //import SwiftUI
 //
+//@available(iOS 13.0, tvOS 13.0, *)
 //struct ___VARIABLE_sceneName___ViewControllerRepresentable: UIViewControllerRepresentable {
-//    @available(iOS 13.0, *)
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<___VARIABLE_sceneName___ViewControllerRepresentable>) -> ___VARIABLE_sceneName___ViewController {
+//    typealias ViewController = ___VARIABLE_sceneName___ViewController
+//
+//    func makeUIViewController(context: Context) -> ViewController {
 //        // let bundle = Bundle(for: ___VARIABLE_sceneName___ViewController.self)
 //        // let storyboard = UIStoryboard(name: "Main", bundle: bundle)
 //        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___ViewController")
-//        return ___VARIABLE_sceneName___ViewController(nibName: nil, bundle: nil)
+//        return ViewController(nibName: nil, bundle: nil)
 //    }
 //
-//    @available(iOS 13.0, *)
-//    func updateUIViewController(_ uiViewController: ___VARIABLE_sceneName___ViewController, context: UIViewControllerRepresentableContext<___VARIABLE_sceneName___ViewControllerRepresentable>) {
-//
-//    }
+//    func updateUIViewController(_ uiViewController: ViewController, context: Context) {}
 //}
 //
+//@available(iOS 13.0, tvOS 13.0, *)
 //struct UIKit___VARIABLE_sceneName___ViewControllerProvider: PreviewProvider {
 //    static var previews: ___VARIABLE_sceneName___ViewControllerRepresentable {
 //        ___VARIABLE_sceneName___ViewControllerRepresentable()
 //    }
 //}
+//#endif
