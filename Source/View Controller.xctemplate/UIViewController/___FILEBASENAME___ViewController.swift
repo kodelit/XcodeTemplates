@@ -10,7 +10,7 @@ protocol ___VARIABLE_sceneName___Assembling {
 }
 
 protocol ___VARIABLE_sceneName___BusinessLogic {
-    func handle(request: ___VARIABLE_sceneName___.Something.Request)
+    func handle(request: ___VARIABLE_sceneName___.Request)
 }
 
 class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___ {
@@ -60,23 +60,20 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     override func viewDidLoad() {
         super.viewDidLoad()
         assembler.loadSubviews(self)
-//        doSomething()
+        interactor?.handle(request: .viewDidLoad)
+
     }
 
     // MARK: Actions
 
     //@IBOutlet weak var nameTextField: UITextField!
 
-    //func doSomething() {
-    //    let request = ___VARIABLE_sceneName___.Something.Request()
-    //    interactor?.handle(request: request)
-    //}
 }
 
 // MARK: - DisplayLogic
 
 extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___DisplayLogic {
-    func display(viewModel: ___VARIABLE_sceneName___.Something.ViewModel) {
+    func display(viewModel: ___VARIABLE_sceneName___.ViewModel) {
         //nameTextField.text = viewModel.name
     }
 }
