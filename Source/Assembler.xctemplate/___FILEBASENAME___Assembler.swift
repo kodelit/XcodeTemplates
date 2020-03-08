@@ -12,19 +12,19 @@ struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
         router.viewController = viewController
         router.dataStore = interactor
     }
-    
+
     func loadSubviews(_ viewController: ___VARIABLE_sceneName___ViewController) {
         let view = viewController.view
-        
+
         //let button = UIButton(type: .custom)
         //button.translatesAutoresizingMaskIntoConstraints = false
         //view?.addSubview(button)
         //viewController.button = button
-        
+
         setupLayout(viewController)
     }
-    
+
     func setupLayout(_ viewController: ___VARIABLE_sceneName___ViewController) {
-        
+
     }
 }

@@ -10,6 +10,7 @@ protocol ___VARIABLE_sceneName___Assembling {
 }
 
 protocol ___VARIABLE_sceneName___BusinessLogic {
+    func handle(event: ___VARIABLE_sceneName___.Event)
     func handle(request: ___VARIABLE_sceneName___.Request)
 }
 
@@ -60,8 +61,7 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     override func viewDidLoad() {
         super.viewDidLoad()
         assembler.loadSubviews(self)
-        interactor?.handle(request: .viewDidLoad)
-
+        interactor?.handle(event: .viewDidLoad)
     }
 
     // MARK: Actions
@@ -75,6 +75,14 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
 extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___DisplayLogic {
     func display(viewModel: ___VARIABLE_sceneName___.ViewModel) {
         //nameTextField.text = viewModel.name
+    }
+
+    func display(update: ___VARIABLE_sceneName___.Update) {
+        //switch update {
+        //case let .deselectRow(at: indexPath, animated: animated):
+        //    break
+        //default: break
+        //}
     }
 }
 
