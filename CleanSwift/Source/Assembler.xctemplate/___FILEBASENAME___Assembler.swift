@@ -14,17 +14,17 @@ struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
     }
 
     func loadSubviews(_ viewController: ___VARIABLE_sceneName___ViewController) {
-        let view = viewController.view
+        //guard let view = viewController.view else { return }
 
         //let button = UIButton(type: .custom)
         //button.translatesAutoresizingMaskIntoConstraints = false
-        //view?.addSubview(button)
+        //view.addSubview(button)
         //viewController.button = button
 
         setupLayout(viewController)
     }
 
     func setupLayout(_ viewController: ___VARIABLE_sceneName___ViewController) {
-
+        //guard let view = viewController.view else { return }
     }
 }

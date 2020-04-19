@@ -11,6 +11,8 @@
 	<key>Options</key>
 	<array>
 		<dict>
+			<key>Default</key>
+			<string>MyScene</string>
 			<key>Description</key>
 			<string>The name of the scene to create</string>
 			<key>Identifier</key>
@@ -36,7 +38,7 @@
 			<key>Default</key>
 			<string>___VARIABLE_sceneName:identifier___Assembler</string>
 			<key>Description</key>
-			<string>The presenter name</string>
+			<string>The assembler name</string>
 			<key>Identifier</key>
 			<string>assemblerName</string>
 			<key>Name</key>

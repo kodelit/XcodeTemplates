@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MainTemplateFile</key>
+	<string>___FILEBASENAME___.podspec</string>
+	<key>DefaultCompletionName</key>
+	<string>MyFramework</string>
+	<key>Description</key>
+	<string>This generates a new Podspec file.</string>
+	<key>Kind</key>
+	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Identifier</key>
+			<string>podName</string>
+			<key>Description</key>
+			<string>The name of POD to create</string>
+			<key>Default</key>
+			<string>MyPod</string>
+			<key>Name</key>
+			<string>Pod name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>userName</string>
+			<key>Description</key>
+			<string>Author&apos;s name</string>
+			<key>Default</key>
+			<string>kodelit</string>
+			<key>Name</key>
+			<string>Author&apos;s name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>summary</string>
+			<key>Description</key>
+			<string>A short description of the pod</string>
+			<key>Default</key>
+			<string>Short description</string>
+			<key>Name</key>
+			<string>Summary:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>description</string>
+			<key>Description</key>
+			<string>This description is used to generate tags and improve search results.
+    * Think: What does it do? Why did you write it? What is the focus?
+    * Try to keep it short, snappy and to the point.
+    * Write the description between the DESC delimiters below.
+    * Finally, don&apos;t worry about the indent, CocoaPods strips it!</string>
+			<key>Default</key>
+			<string>TODO: Add long description of the pod here.</string>
+			<key>Name</key>
+			<string>Description:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>email</string>
+			<key>Description</key>
+			<string>Author&apos;s e-mail address</string>
+			<key>Default</key>
+			<string>11218364+kodelit@users.noreply.github.com</string>
+			<key>Name</key>
+			<string>Author&apos;s e-mail:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>git</string>
+			<key>Description</key>
+			<string>The source git repository</string>
+			<key>Default</key>
+			<string>https://github.com/___VARIABLE_userName___/___VARIABLE_podName___.git</string>
+			<key>Name</key>
+			<string>Git repo:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Default</key>
+			<string>___VARIABLE_podName___</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>podspecName</string>
+			<key>Description</key>
+			<string>The podspec file name</string>
+			<key>Default</key>
+			<string>___VARIABLE_podName___.podspec</string>
+			<key>Name</key>
+			<string>Podspec file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>deploymentTargetChoice</string>
+			<key>Description</key>
+			<string>iOS deployment target</string>
+			<key>Default</key>
+			<string>11.0</string>
+			<key>Name</key>
+			<string>iOS deployment target:</string>
+			<key>Required</key>
+			<true/>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+	</array>
+	<key>Platforms</key>
+	<array>
+		<string>com.apple.platform.macosx</string>
+		<string>com.apple.platform.iphoneos</string>
+	</array>
+	<key>SortOrder</key>
+	<string>1</string>
+	<key>Summary</key>
+	<string>This generates a new Podspec file with the basic setup to create the development pod faster.</string>
+</dict>
+</plist>
