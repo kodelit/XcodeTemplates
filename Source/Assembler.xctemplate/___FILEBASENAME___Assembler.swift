@@ -1,7 +1,7 @@
 import UIKit
 
 struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
-    func resolve(_ viewController:___VARIABLE_sceneName___ViewController) {
+    func resolve(_ viewController: ___VARIABLE_sceneName___ViewController) {
         let interactor = ___VARIABLE_sceneName___Interactor()
         let presenter = ___VARIABLE_sceneName___Presenter()
         let router = ___VARIABLE_sceneName___Router()

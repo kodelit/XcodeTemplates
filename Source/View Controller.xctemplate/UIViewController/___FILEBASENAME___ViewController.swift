@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ___VARIABLE_sceneName___Assembling {
-    func resolve(_ :___VARIABLE_sceneName___ViewController)
+    func resolve(_: ___VARIABLE_sceneName___ViewController)
 }
 
 @objc protocol ___VARIABLE_sceneName___RoutingLogic {
@@ -76,7 +76,6 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
         //nameTextField.text = viewModel.name
     }
 }
-
 
 // MARK: - Xcode Preview
 // Works from Xcode 11 and macOS 10.15
