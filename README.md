@@ -4,6 +4,7 @@ TODO:
 
 - Clean Swift Template:
 	- [ ] write documentation
+	- [x] write `install` script
 	- [ ] rewrite `install` script in swift
 - CocoaPods temlate:
 	- [ ] write documentation
