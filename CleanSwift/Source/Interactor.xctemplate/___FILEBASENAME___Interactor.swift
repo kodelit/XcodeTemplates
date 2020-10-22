@@ -5,11 +5,14 @@ protocol ___VARIABLE_sceneName___PresentationLogic {
     func present(notification: ___VARIABLE_sceneName___.Notification)
 }
 
-class ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___DataStore {
+class ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___DataStoring {
     var presenter: ___VARIABLE_sceneName___PresentationLogic?
-    var worker: ___VARIABLE_sceneName___Worker?
 
-    // MARK: - Data Store
+    // MARK: - Dependencies (services, managers, helpers, formatters, workers, etc.)
+
+    //var worker: ___VARIABLE_sceneName___Worker?
+
+    // MARK: - Data Storing
 
     //var name: String = ""
 }
@@ -25,9 +28,8 @@ extension ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___BusinessLo
     }
 
     func handle(request: ___VARIABLE_sceneName___.Request) {
-        worker = ___VARIABLE_sceneName___Worker()
-        worker?.doSomeWork()
-
+        //assert(worker != nil, "___VARIABLE_sceneName___Worker is not loaded.")
+        //worker?.doSomeWork()
         //presenter?.present(response: .deselectRow(at: ...))
     }
 }

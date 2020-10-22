@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file
 
 ## 4.0.0 - kodelit fork started
-- Indentation style changed from Allman to more swift like style (someting like [1TBS](https://en.wikipedia.org/wiki/Indentation_style#Variant:_1TBS_(OTBS)))
-- Assembler class added to move module composing outside the ViewController to handle dependency injection in more complicated cases
-- Support for Xcode Preview, a new functionality introduced with SwiftUI to preview ViewController layout
+- Indentation style changed from Allman to more swift like style (someting like [1TBS](https://en.wikipedia.org/wiki/Indentation_style#Variant:_1TBS_(OTBS)));
+- Assembler type added to move module composing outside the ViewController and handle dependency injection;
+- Support for Xcode Preview, a new functionality introduced with SwiftUI to preview ViewController layout;
+- Added new models categories;
+- Some naming changes;
+- Extended documentation of the code;
 
 ---
 ## 3.0.2

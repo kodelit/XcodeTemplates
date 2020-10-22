@@ -1,11 +1,10 @@
 import UIKit
 
 protocol ___VARIABLE_sceneName___Assembling {
-    func resolve(_: ___VARIABLE_sceneName___ViewController)
-    func loadSubviews(_: ___VARIABLE_sceneName___ViewController)
+    func assemble(_: ___VARIABLE_sceneName___ViewController)
 }
 
-@objc protocol ___VARIABLE_sceneName___RoutingLogic {
+@objc protocol ___VARIABLE_sceneName___Routing {
     //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
@@ -15,9 +14,12 @@ protocol ___VARIABLE_sceneName___BusinessLogic {
 }
 
 class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___ {
+    /// Assembler of the whole scene and its dependencies. Initially always assigned with the default assembler of the scene.
     var assembler: ___VARIABLE_sceneName___Assembling = ___VARIABLE_sceneName___Assembler()
     var interactor: ___VARIABLE_sceneName___BusinessLogic?
-    var router: (NSObjectProtocol & ___VARIABLE_sceneName___RoutingLogic & ___VARIABLE_sceneName___DataPassing)?
+    var router: (NSObjectProtocol & ___VARIABLE_sceneName___Routing & ___VARIABLE_sceneName___DataPassing)?
+
+    //@IBOutlet weak var nameTextField: UITextField!
 
     // MARK: Object lifecycle
 
@@ -38,7 +40,7 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     /// Resolves view controller with given `assembler`.
     /// Resposible for post init configuration of the controller, before view is loaded.
     func setup() {
-        assembler.resolve(self)
+        assembler.assemble(self)
     }
 
     // MARK: Routing
@@ -52,22 +54,45 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     //    }
     //}
 
-    //@IBAction func goSomewhere(_ sender: UIButton) {
-    //    router?.routeToSomewhere(segue: nil)
-    //}
-
     // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        assembler.loadSubviews(self)
+        loadSubviews()
         interactor?.handle(event: .viewDidLoad)
     }
 
     // MARK: Actions
 
-    //@IBOutlet weak var nameTextField: UITextField!
+    //@IBAction func goSomewhere(_ sender: UIButton) {
+    //    router?.routeToSomewhere(segue: nil)
+    //}
+}
 
+// MARK: - Loading subviews & layout
+
+extension ___VARIABLE_sceneName___ViewController {
+
+    /// Loads subviews after the view is loaded.
+    ///
+    /// Inveked in `viewDidLoad()` before the interactor will handle the `.viewDidLoad` event
+    func loadSubviews() {
+        //guard let view = viewController.view else { return }
+
+        //let button = UIButton(type: .custom)
+        //button.translatesAutoresizingMaskIntoConstraints = false
+        //view.addSubview(button)
+        //viewController.button = button
+
+        setupLayout()
+    }
+
+    /// Sets up all nessesery layout.
+    ///
+    /// Invoked at the end of the `loadSubviews()` method
+    func setupLayout() {
+        //guard let view = viewController.view else { return }
+    }
 }
 
 // MARK: - DisplayLogic

@@ -2,11 +2,11 @@
 
 Main rules:
 
-- Every manager, provider, etc. is considered as "Worker"
+- Every manager, provider, helper, formatter, service, etc. is considered as "Worker"
 
 - Every worker has its protocol which defines "public" methods and properties and hence testable behaviours.
 
-	"Public" in this case doesn't mean modifier but availabilit for utilizers of the Worker. This protocol provides behaviours used outside the buisness logic, testable, and public. Methods and properties not included in protocols are considered private regardless of their modifiers (public, internal, etc.). This may allow this entities to be available for subclasses and other cooperating objects, but unavailable for the objects which utilize the Workers. But it would be better if cooperating objects use other protocols tailored for them.
+	"Public" in this case doesn't mean modifier but availabilit for utilizers of the Worker. This protocol provides behaviours used outside the buisness logic, testable, and public. Methods and properties not included in protocols are considered private regardless of their modifiers (public, internal, etc.). This may allow this entities to be available for subclasses and other cooperating objects, but unavailable for the objects which utilize the Workers. But it would be better if cooperating objects use other protocols tailored for them, according to the The Interface Segregation Principle (ISP) of the [SOLID](https://marcosantadev.com/solid-principles-applied-swift/).
 	
 - Never embed texts of labels in custom Views/Controls. Content should allways be loaded from one place (presenter) and this is the place where texts should be localized.
 

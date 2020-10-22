@@ -1,16 +1,16 @@
 import UIKit
 
-protocol ___VARIABLE_sceneName___DataStore {
+protocol ___VARIABLE_sceneName___DataStoring {
     //var name: String { get set }
 }
 
 protocol ___VARIABLE_sceneName___DataPassing {
-    var dataStore: ___VARIABLE_sceneName___DataStore? { get }
+    var dataStore: ___VARIABLE_sceneName___DataStoring? { get }
 }
 
-class ___VARIABLE_sceneName___Router: NSObject, ___VARIABLE_sceneName___RoutingLogic, ___VARIABLE_sceneName___DataPassing {
+class ___VARIABLE_sceneName___Router: NSObject, ___VARIABLE_sceneName___Routing, ___VARIABLE_sceneName___DataPassing {
     weak var viewController: ___VARIABLE_sceneName___ViewController?
-    var dataStore: ___VARIABLE_sceneName___DataStore?
+    var dataStore: ___VARIABLE_sceneName___DataStoring?
 
     // MARK: - Routing Logic
 
@@ -36,7 +36,7 @@ class ___VARIABLE_sceneName___Router: NSObject, ___VARIABLE_sceneName___RoutingL
 
     // MARK: Passing data
 
-    //func passDataToSomewhere(source: ___VARIABLE_sceneName___DataStore, destination: inout SomewhereDataStore) {
+    //func passDataToSomewhere(source: ___VARIABLE_sceneName___DataStoring, destination: inout SomewhereDataStore) {
     //  destination.name = source.name
     //}
 }

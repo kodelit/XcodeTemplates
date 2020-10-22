@@ -1,7 +1,14 @@
 import UIKit
 
+/// Responsible for assembling the scene and dependency injection.
+///
+/// The assembler is an optional component which might be skipped in favour of the Router.
+/// In that case router should take the tasks of the assembler.
 struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
-    func resolve(_ viewController: ___VARIABLE_sceneName___ViewController) {
+
+    /// Assembles the scene by creating and assigning all components of the module and its dependencies.
+    func assemble(_ viewController: ___VARIABLE_sceneName___ViewController) {
+        // Basic assembling
         let interactor = ___VARIABLE_sceneName___Interactor()
         let presenter = ___VARIABLE_sceneName___Presenter()
         let router = ___VARIABLE_sceneName___Router()
@@ -11,20 +18,9 @@ struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-    }
 
-    func loadSubviews(_ viewController: ___VARIABLE_sceneName___ViewController) {
-        //guard let view = viewController.view else { return }
-
-        //let button = UIButton(type: .custom)
-        //button.translatesAutoresizingMaskIntoConstraints = false
-        //view.addSubview(button)
-        //viewController.button = button
-
-        setupLayout(viewController)
-    }
-
-    func setupLayout(_ viewController: ___VARIABLE_sceneName___ViewController) {
-        //guard let view = viewController.view else { return }
+        // Dependencies
+        //let worker = IncomingCallWorker()
+        //interactor.worker = worker
     }
 }
