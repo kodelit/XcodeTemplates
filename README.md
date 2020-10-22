@@ -4,6 +4,7 @@ TODO:
 
 - Clean Swift Template:
 	- [ ] write documentation
+	- [x] write `install` script
 	- [ ] rewrite `install` script in swift
 - CocoaPods temlate:
 	- [ ] write documentation
@@ -12,7 +13,7 @@ TODO:
 
 ## Clean Swift Template
 
-Overview: [CleanSwift/README.md](CleanSwift/README.md)
+Overview: [CleanSwift/README.md](CleanSwift/README.md)  
 Discussion: [CleanSwift/Doc/CleanSwift.md](CleanSwift/Doc/CleanSwift.md)
 
 ## Codoa Pods
