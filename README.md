@@ -12,7 +12,7 @@ TODO:
 
 ## Clean Swift Template
 
-Overview: [CleanSwift/README.md](CleanSwift/README.md)
+Overview: [CleanSwift/README.md](CleanSwift/README.md)  
 Discussion: [CleanSwift/Doc/CleanSwift.md](CleanSwift/Doc/CleanSwift.md)
 
 ## Codoa Pods
