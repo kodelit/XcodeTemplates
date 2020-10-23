@@ -1,9 +1,6 @@
 import UIKit
 
 /// Responsible for assembling the scene and dependency injection.
-///
-/// The assembler is an optional component which might be skipped in favour of the Router.
-/// In that case router should take the tasks of the assembler.
 struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
 
     /// Assembles the scene by creating and assigning all components of the module and its dependencies.
@@ -20,7 +17,7 @@ struct ___VARIABLE_sceneName___Assembler: ___VARIABLE_sceneName___Assembling {
         router.dataStore = interactor
 
         // Dependencies
-        //let worker = IncomingCallWorker()
+        //let worker = ___VARIABLE_sceneName___Worker()
         //interactor.worker = worker
     }
 }
