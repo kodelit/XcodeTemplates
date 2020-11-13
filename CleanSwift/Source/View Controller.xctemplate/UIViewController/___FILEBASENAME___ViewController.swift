@@ -4,10 +4,6 @@ protocol ___VARIABLE_sceneName___Assembling {
     func assemble(_: ___VARIABLE_sceneName___ViewController)
 }
 
-@objc protocol ___VARIABLE_sceneName___Routing {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-}
-
 protocol ___VARIABLE_sceneName___BusinessLogic {
     func handle(event: ___VARIABLE_sceneName___.Event)
     func handle(request: ___VARIABLE_sceneName___.Request)
@@ -17,7 +13,8 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     /// Assembler of the whole scene and its dependencies. Initially always assigned with the default assembler of the scene.
     var assembler: ___VARIABLE_sceneName___Assembling = ___VARIABLE_sceneName___Assembler()
     var interactor: ___VARIABLE_sceneName___BusinessLogic?
-    var router: (NSObjectProtocol & ___VARIABLE_sceneName___Routing & ___VARIABLE_sceneName___DataPassing)?
+    // or in simple applications, ViewModel can replace Presenter and Interactor put together
+    //var viewModel: ___VARIABLE_sceneName___BusinessLogic?
 
     //@IBOutlet weak var nameTextField: UITextField!
 
@@ -37,22 +34,10 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
 
     /// Invoked at the end of init methods.
     ///
-    /// Resolves view controller with given `assembler`.
     /// Resposible for post init configuration of the controller, before view is loaded.
     func setup() {
         assembler.assemble(self)
     }
-
-    // MARK: Routing
-
-    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //    if let scene = segue.identifier {
-    //        let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-    //        if let router = router, router.responds(to: selector) {
-    //            router.perform(selector, with: segue)
-    //        }
-    //    }
-    //}
 
     // MARK: View lifecycle
 
@@ -64,8 +49,8 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
 
     // MARK: Actions
 
-    //@IBAction func goSomewhere(_ sender: UIButton) {
-    //    router?.routeToSomewhere(segue: nil)
+    //@IBAction func onSomeButton(_ sender: UIButton) {
+    //    interactor?.handle(request: .someButtonAction)
     //}
 }
 
@@ -77,19 +62,26 @@ extension ___VARIABLE_sceneName___ViewController {
     ///
     /// Inveked in `viewDidLoad()` before the interactor will handle the `.viewDidLoad` event
     func loadSubviews() {
-        //guard let view = viewController.view else { return }
-
         //let button = UIButton(type: .custom)
         //button.translatesAutoresizingMaskIntoConstraints = false
         //view.addSubview(button)
-        //viewController.button = button
+        //self.button = button
 
         setupLayout()
     }
 
-    /// Sets up all nessesery layout.
+    /// Performs initial setup of the loaded subviews.
     ///
     /// Invoked at the end of the `loadSubviews()` method
+    func setupSubviews() {
+        // button.isEnabled = false
+
+        setupLayout()
+    }
+
+    /// Performs initial setup of all nessesery layout.
+    ///
+    /// Invoked at the end of the `setupSubviews()` method
     func setupLayout() {
         //guard let view = viewController.view else { return }
     }
