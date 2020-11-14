@@ -9,10 +9,13 @@ protocol ___VARIABLE_sceneName___DataPassing {
 }
 
 class ___VARIABLE_sceneName___Router: NSObject, ___VARIABLE_sceneName___Routing, ___VARIABLE_sceneName___DataPassing {
-    weak var viewController: ___VARIABLE_sceneName___ViewController?
+    private weak var viewController: UIViewController?
     var dataStore: ___VARIABLE_sceneName___DataStoring?
 
     // MARK: - Routing Logic
+
+    func route(to destination: Destination) {
+    }
 
     //func routeToSomewhere(segue: UIStoryboardSegue?) {
     //  if let segue = segue {

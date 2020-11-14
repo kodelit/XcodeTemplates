@@ -5,13 +5,21 @@ protocol ___VARIABLE_sceneName___Assembling {
 }
 
 protocol ___VARIABLE_sceneName___BusinessLogic {
-    func handle(event: ___VARIABLE_sceneName___.Event)
-    func handle(request: ___VARIABLE_sceneName___.Request)
+    func handle(event: ___VARIABLE_sceneName___.LifecycleEvent)
+    func handle(request: ___VARIABLE_sceneName___.UserRequest)
+}
+
+@objc protocol ___VARIABLE_sceneName___StoryboardRouting {
+    //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
 class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___ {
-    /// Assembler of the whole scene and its dependencies. Initially always assigned with the default assembler of the scene.
-    var assembler: ___VARIABLE_sceneName___Assembling = ___VARIABLE_sceneName___Assembler()
+    /// Assembler of the whole scene and its dependencies.
+    ///
+    /// Assembling is performed at the beginning of the `viewDidLoad()` method. However assembler might not be set if you need to perform the assembling somewhere else.
+    var assembler: ___VARIABLE_sceneName___Assembling?
+    typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___Routing
+    var router: Router?
     var interactor: ___VARIABLE_sceneName___BusinessLogic?
     // or in simple applications, ViewModel can replace Presenter and Interactor put together
     //var viewModel: ___VARIABLE_sceneName___BusinessLogic?
@@ -36,13 +44,24 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     ///
     /// Resposible for post init configuration of the controller, before view is loaded.
     func setup() {
-        assembler.assemble(self)
     }
+
+    // MARK: Routing
+
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //    if let scene = segue.identifier {
+    //        let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+    //        if let router = router, router.responds(to: selector) {
+    //            router.perform(selector, with: segue)
+    //        }
+    //    }
+    //}
 
     // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assembler.assemble(self)
         loadSubviews()
         interactor?.handle(event: .viewDidLoad)
     }

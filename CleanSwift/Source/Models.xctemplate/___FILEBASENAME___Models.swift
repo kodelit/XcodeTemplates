@@ -1,10 +1,10 @@
 import UIKit
 
-enum ___VARIABLE_sceneName___ {
+extension ___VARIABLE_sceneName___ {
     // MARK: - Request (UI -> interactor)
 
     /// UI Lifecycle event forwarding
-    enum Event {
+    enum LifecycleEvent {
         case viewDidLoad
     }
 
@@ -24,7 +24,7 @@ enum ___VARIABLE_sceneName___ {
     /// User's request / action
     ///
     /// - note: Provides cases for simple requests but also is a namespace for data structures of more complex requests.
-    enum Request {
+    enum UserRequest {
         //case someButtonAction
     }
 
@@ -43,8 +43,8 @@ enum ___VARIABLE_sceneName___ {
         //case invitation(displayName: String, accept: (Bool) -> Void)
     }
 
-    /// The response of the Interactor on an event or request
-    enum Response {
+    /// The response of the Interactor on a `LifecycleEvent` or the `UserRequest`
+    enum ResponseForUser {
         case reloadData
         //case deselectRow(at: IndexPath)
     }
@@ -53,7 +53,6 @@ enum ___VARIABLE_sceneName___ {
 
     /// Model to display
     struct ViewModel {
-
     }
 
     /// Update of the part of the UI
@@ -62,13 +61,15 @@ enum ___VARIABLE_sceneName___ {
     enum Update {
         //case deselectRow(at: IndexPath, animated: Bool)
 
-        struct SomeUpdate {
-            let someFlag: Bool
-        }
+        // Update use case triggering more complex update logic
+        //struct SomeUpdate {
+        //    let someFlag: Bool
+        //}
     }
 
     // MARK: Use cases
 
+    // Models encapsulated in the use case
     //enum Something {
     //    struct Request {
     //    }
@@ -77,4 +78,21 @@ enum ___VARIABLE_sceneName___ {
     //    struct ViewModel {
     //    }
     //}
+
+    // MARK: - Module Comunication (Module / scene root <-> interactor)
+
+    enum ModuleRequest {
+    }
+
+    /// The response of the Interactor on the `ModuleRequest`
+    enum ResponseForModule {
+    }
+
+    // MARK: Routing
+
+    /// Routing destination descriptor.
+    ///
+    /// - note: Provides cases for simple navigation but also is a namespace for data structures of more complex navigation.
+    enum Destination {
+    }
 }
