@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:SwiftTemplatesInstallScript/SwiftTemplatesInstallScript.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/kodelit/REPOS/CleanSwiftTemplates/Install"
+      assignedFileDataType = "public.swift-source">
+   </FileRef>
+   <FileRef
+      location = "group:CleanSwift">
+   </FileRef>
+</Workspace>
