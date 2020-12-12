@@ -1,28 +1,30 @@
 import UIKit
 
-protocol ___VARIABLE_sceneName___Assembling {
-    func assemble(_: ___VARIABLE_sceneName___ViewController)
+protocol ___VARIABLE_sceneName___SceneAssembling {
+    func assembleIfNeeded(_: ___VARIABLE_sceneName___SceneViewController)
 }
 
-protocol ___VARIABLE_sceneName___BusinessLogic {
-    func handle(event: ___VARIABLE_sceneName___.LifecycleEvent)
-    func handle(request: ___VARIABLE_sceneName___.UserRequest)
+protocol ___VARIABLE_sceneName___SceneBusinessLogic {
+    func handle(event: ___VARIABLE_sceneName___Scene.LifecycleEvent)
+    func handle(action: ___VARIABLE_sceneName___Scene.UserAction)
 }
 
-@objc protocol ___VARIABLE_sceneName___StoryboardRouting {
+@objc protocol ___VARIABLE_sceneName___SceneStoryboardRouting {
     //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
-class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass___ {
+class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSubclass___ {
     /// Assembler of the whole scene and its dependencies.
     ///
-    /// Assembling is performed at the beginning of the `viewDidLoad()` method. However assembler might not be set if you need to perform the assembling somewhere else.
-    var assembler: ___VARIABLE_sceneName___Assembling?
-    typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___Routing
-    var router: Router?
-    var interactor: ___VARIABLE_sceneName___BusinessLogic?
+    /// Assembling is performed at the beginning of the `viewDidLoad()` or on demand with `assembleIfNeeded()` method. However assembler might not be set if you need to perform the assembling somewhere else.
+    var assembler: ___VARIABLE_sceneName___SceneAssembling?
+    var interactor: ___VARIABLE_sceneName___SceneBusinessLogic?
     // or in simple applications, ViewModel can replace Presenter and Interactor put together
-    //var viewModel: ___VARIABLE_sceneName___BusinessLogic?
+    //var viewModel: ___VARIABLE_sceneName___SceneBusinessLogic?
+
+    typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___SceneStoryboardRouting
+    /// Router in the view controller is used only in case of routing with UIStoryboardSegue (optional), in other cases view controller should send request to the interactor/viewModel.
+    var router: Router?
 
     //@IBOutlet weak var nameTextField: UITextField!
 
@@ -39,6 +41,13 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
     }
 
     // MARK: Setup
+
+    /// Assembles the scene by creating and assigning all components of the scene and its dependencies if not done already.
+    func assembleIfNeeded() {
+        // !!!: Remove the following line if you don't need assembler, because you perform the assembling somewhere else
+        assert(assembler != nil, "Assembler not set.")
+        assembler?.assembleIfNeeded(self)
+    }
 
     /// Invoked at the end of init methods.
     ///
@@ -61,21 +70,22 @@ class ___VARIABLE_sceneName___ViewController: ___VARIABLE_viewControllerSubclass
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        assembler.assemble(self)
+        assembleIfNeeded()
         loadSubviews()
         interactor?.handle(event: .viewDidLoad)
+        //viewModel?.handle(event: .viewDidLoad)
     }
 
     // MARK: Actions
 
     //@IBAction func onSomeButton(_ sender: UIButton) {
-    //    interactor?.handle(request: .someButtonAction)
+    //    interactor?.handle(action: .someButtonAction)
     //}
 }
 
 // MARK: - Loading subviews & layout
 
-extension ___VARIABLE_sceneName___ViewController {
+extension ___VARIABLE_sceneName___SceneViewController {
 
     /// Loads subviews after the view is loaded.
     ///
@@ -108,12 +118,14 @@ extension ___VARIABLE_sceneName___ViewController {
 
 // MARK: - DisplayLogic
 
-extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___DisplayLogic {
-    func display(viewModel: ___VARIABLE_sceneName___.ViewModel) {
-        //nameTextField.text = viewModel.name
+extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___SceneDisplayLogic {
+    func display(viewModel: ___VARIABLE_sceneName___Scene.ViewModel) {
+        //tableData = viewModel
+        //tableView.reloadData()
     }
 
-    func display(update: ___VARIABLE_sceneName___.Update) {
+    func display(update: ___VARIABLE_sceneName___Scene.Update) {
+        //nameTextField.text = update.name
         //switch update {
         //case let .deselectRow(at: indexPath, animated: animated):
         //    break
@@ -129,13 +141,13 @@ extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___Displa
 //import SwiftUI
 //
 //@available(iOS 13.0, tvOS 13.0, *)
-//struct ___VARIABLE_sceneName___ViewControllerRepresentable: UIViewControllerRepresentable {
-//    typealias ViewController = ___VARIABLE_sceneName___ViewController
+//struct ___VARIABLE_sceneName___SceneViewControllerRepresentable: UIViewControllerRepresentable {
+//    typealias ViewController = ___VARIABLE_sceneName___SceneViewController
 //
 //    func makeUIViewController(context: Context) -> ViewController {
-//        // let bundle = Bundle(for: ___VARIABLE_sceneName___ViewController.self)
+//        // let bundle = Bundle(for: ___VARIABLE_sceneName___SceneViewController.self)
 //        // let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-//        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___ViewController")
+//        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___SceneViewController")
 //        return ViewController(nibName: nil, bundle: nil)
 //    }
 //
@@ -143,9 +155,9 @@ extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___Displa
 //}
 //
 //@available(iOS 13.0, tvOS 13.0, *)
-//struct UIKit___VARIABLE_sceneName___ViewControllerProvider: PreviewProvider {
-//    static var previews: ___VARIABLE_sceneName___ViewControllerRepresentable {
-//        ___VARIABLE_sceneName___ViewControllerRepresentable()
+//struct UIKit___VARIABLE_sceneName___SceneViewControllerProvider: PreviewProvider {
+//    static var previews: ___VARIABLE_sceneName___SceneViewControllerRepresentable {
+//        ___VARIABLE_sceneName___SceneViewControllerRepresentable()
 //    }
 //}
 //#endif

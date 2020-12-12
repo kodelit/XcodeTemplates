@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultCompletionName</key>
-	<string>MyScene</string>
+	<string>Some</string>
 	<key>Description</key>
 	<string>This generates a new set of boundary models between the view controller, interactor, presenter, and router using Uncle Bob&apos;s clean architecture.</string>
 	<key>Kind</key>
@@ -12,7 +12,23 @@
 	<array>
 		<dict>
 			<key>Default</key>
-			<string>MyScene</string>
+			<string>___VARIABLE_sceneName:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>Some</string>
 			<key>Description</key>
 			<string>The name of the scene to create</string>
 			<key>Identifier</key>
@@ -25,14 +41,6 @@
 			<true/>
 			<key>Type</key>
 			<string>text</string>
-		</dict>
-		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___</string>
-			<key>Identifier</key>
-			<string>productName</string>
-			<key>Type</key>
-			<string>static</string>
 		</dict>
 	</array>
 	<key>Platforms</key>

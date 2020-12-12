@@ -1,16 +1,16 @@
 @testable import ___PROJECTNAMEASIDENTIFIER___
 import XCTest
 
-class ___VARIABLE_sceneName___PresenterTests: XCTestCase {
+class ___VARIABLE_sceneName___ScenePresenterTests: XCTestCase {
     // MARK: Subject under test
 
-    var sut: ___VARIABLE_sceneName___Presenter!
+    var sut: ___VARIABLE_sceneName___ScenePresenter!
 
     // MARK: Test lifecycle
 
     override func setUp() {
         super.setUp()
-        setup___VARIABLE_sceneName___Presenter()
+        setup___VARIABLE_sceneName___ScenePresenter()
     }
 
     override func tearDown() {
@@ -19,16 +19,16 @@ class ___VARIABLE_sceneName___PresenterTests: XCTestCase {
 
     // MARK: Test setup
 
-    func setup___VARIABLE_sceneName___Presenter() {
-        sut = ___VARIABLE_sceneName___Presenter()
+    func setup___VARIABLE_sceneName___ScenePresenter() {
+        sut = ___VARIABLE_sceneName___ScenePresenter()
     }
 
     // MARK: Test doubles
 
-    class ___VARIABLE_sceneName___DisplayLogicSpy: ___VARIABLE_sceneName___DisplayLogic {
+    class ___VARIABLE_sceneName___SceneDisplayLogicSpy: ___VARIABLE_sceneName___SceneDisplayLogic {
         var displaySomethingCalled = false
 
-        func display(viewModel: ___VARIABLE_sceneName___.Something.ViewModel) {
+        func display(viewModel: ___VARIABLE_sceneName___Scene.Something.ViewModel) {
             displaySomethingCalled = true
         }
     }
@@ -37,9 +37,9 @@ class ___VARIABLE_sceneName___PresenterTests: XCTestCase {
 
     func testPresentSomething() {
         // Given
-        let spy = ___VARIABLE_sceneName___DisplayLogicSpy()
+        let spy = ___VARIABLE_sceneName___SceneDisplayLogicSpy()
         sut.viewController = spy
-        let response = ___VARIABLE_sceneName___.Something.Response()
+        let response = ___VARIABLE_sceneName___Scene.Something.Response()
 
         // When
         sut.present(response: response)

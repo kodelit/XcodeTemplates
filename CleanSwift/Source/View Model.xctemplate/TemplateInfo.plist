@@ -5,7 +5,7 @@
 	<key>DefaultCompletionName</key>
 	<string>Some</string>
 	<key>Description</key>
-	<string>This generates a new router using Uncle Bob&apos;s clean architecture. You navigate to other scenes by presenting and dismissing other view controllers here.</string>
+	<string>This generates a new interactor using Uncle Bob&apos;s clean architecture. Your business logic goes here.</string>
 	<key>Kind</key>
 	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
 	<key>Options</key>
@@ -36,21 +36,13 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>$(___VARIABLE_sceneName:identifier___,)</string>
-			<key>Identifier</key>
-			<string>variableSuffix</string>
-			<key>Type</key>
-			<string>static</string>
-		</dict>
-		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneRouter</string>
+			<string>___VARIABLE_sceneName:identifier___SceneViewModel</string>
 			<key>Description</key>
-			<string>The router name</string>
+			<string>The View Model name</string>
 			<key>Identifier</key>
-			<string>routerName</string>
+			<string>viewModelName</string>
 			<key>Name</key>
-			<string>Router Name:</string>
+			<string>View Model Name:</string>
 			<key>Required</key>
 			<true/>
 			<key>Type</key>
@@ -62,8 +54,8 @@
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>6</string>
+	<string>2</string>
 	<key>Summary</key>
-	<string>This generates a new router using Uncle Bob&apos;s clean architecture. You navigate to other scenes by presenting and dismissing other view controllers here.</string>
+	<string>This generates a new interactor using Uncle Bob&apos;s clean architecture. Your business logic goes here.</string>
 </dict>
 </plist>

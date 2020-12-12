@@ -3,22 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultCompletionName</key>
-	<string>MyScene</string>
+	<string>Some</string>
 	<key>Description</key>
-	<string>This generates a new root class and interface of the module. Your routing logic, assembling logic and external communication protocols goes here.</string>
+	<string>This generates a new root class and interface of the module.</string>
 	<key>Kind</key>
 	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
 	<key>Options</key>
 	<array>
 		<dict>
 			<key>Default</key>
-			<string>MyScene</string>
+			<string>Some</string>
 			<key>Description</key>
-			<string>The name of the scene to create</string>
+			<string>The name of the module to create</string>
 			<key>Identifier</key>
-			<string>sceneName</string>
+			<string>moduleName</string>
 			<key>Name</key>
-			<string>New Scene Name:</string>
+			<string>New module Name:</string>
 			<key>NotPersisted</key>
 			<true/>
 			<key>Required</key>
@@ -28,7 +28,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___</string>
+			<string>___VARIABLE_moduleName:identifier___</string>
 			<key>Identifier</key>
 			<string>productName</string>
 			<key>Type</key>
@@ -36,13 +36,49 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Module</string>
+			<string>___VARIABLE_moduleName:identifier___</string>
+			<key>Identifier</key>
+			<string>sceneName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___Module</string>
 			<key>Description</key>
 			<string>The module name</string>
 			<key>Identifier</key>
-			<string>moduleName</string>
+			<string>moduleFileName</string>
 			<key>Name</key>
 			<string>Module Name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___DefaultController</string>
+			<key>Description</key>
+			<string>The default controller name</string>
+			<key>Identifier</key>
+			<string>controllerFileName</string>
+			<key>Name</key>
+			<string>Controller Name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___Models</string>
+			<key>Description</key>
+			<string>The models file name</string>
+			<key>Identifier</key>
+			<string>modelsFileName</string>
+			<key>Name</key>
+			<string>Models file name:</string>
 			<key>Required</key>
 			<true/>
 			<key>Type</key>
@@ -56,6 +92,6 @@
 	<key>SortOrder</key>
 	<string>2</string>
 	<key>Summary</key>
-	<string>This generates a new root class and interface of the module. Your routing logic, assembling logic and external communication protocols goes here.</string>
+	<string>This generates a new root class and interface of the module.</string>
 </dict>
 </plist>

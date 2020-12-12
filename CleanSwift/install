@@ -25,44 +25,95 @@ function loadFileNameFrom() {
 
 SOURCE_FILE_TOP_COMMENT=`cat ${SOURCE_DIR}/SOURCE_FILE_TOP_COMMENT.swift`
 
-declare -a COMMON_TEMPLATES_DIR_NAMES=("Assembler.xctemplate" "Interactor.xctemplate" "Models.xctemplate" "Presenter.xctemplate" "Router.xctemplate" "Worker.xctemplate")
+declare -a COMMON_TEMPLATES_DIR_NAMES=("Assembler.xctemplate" "Interactor.xctemplate" "Models.xctemplate" "Module.xctemplate" "Presenter.xctemplate" "Router.xctemplate" "View Model.xctemplate" "Worker.xctemplate")
+declare -a SCENE_TEMPLATES_DIR_NAMES=("Assembler.xctemplate" "Interactor.xctemplate" "Models.xctemplate" "Presenter.xctemplate" "Router.xctemplate" "View Model.xctemplate" "Worker.xctemplate")
 declare -a VIEW_CONTROLLER_NAMES=("UICollectionViewController" "UITableViewController" "UIViewController")
 
 SCENE_TEMPLATE_DIR_NAME=Scene.xctemplate
 SCENE_TEMPLATE_SOURCE_DIR="${SOURCE_DIR}/${SCENE_TEMPLATE_DIR_NAME}"
 VIEW_CONTROLLER_TEMPLATE_DIR_NAME=View\ Controller.xctemplate
 VIEW_CONTROLLER_SOURCE_DIR="${SOURCE_DIR}/${VIEW_CONTROLLER_TEMPLATE_DIR_NAME}"
-VIEW_CONTROLLER_SOURCE="${VIEW_CONTROLLER_SOURCE_DIR}/UIViewController/___FILEBASENAME___ViewController.swift"
+VIEW_CONTROLLER_SOURCE="${VIEW_CONTROLLER_SOURCE_DIR}/UIViewController/___FILEBASENAME___SceneViewController.swift"
 TESTS_TEMPLATES_DIR_NAME=Unit\ Tests.xctemplate
 
 # overrides target file if the file exists
 function generateSourceFile() {
   sourceFile="${1}"
   targetDir="${2}"
+  echo "Generate SOURCE file of ${sourceFile}"
 
   # update FILE_NAME* variable
   loadFileNameFrom "${sourceFile}"
   # target file path
   targetFile="${targetDir}/${FILE_NAME}"
+  
+  echo "Add SOURCE_FILE_TOP_COMMENT to ${targetFile}"
   # override/create file with comment at the top
   echo "${SOURCE_FILE_TOP_COMMENT}" > "${targetFile}"
-  # append source code
 
+  # append source code
+  echo "Add CONTENT of ${sourceFile} to ${targetFile}"
   cat "${sourceFile}" >> "${targetFile}"
 }
 
 function generateCommonTemplates() {
   installDir="${1}"
-  generateOnlySourceFile=$2
+  generateOnlySceneSourceFiles=$2
 
   mkdir -p "${installDir}"
 
-  for templateDirName in "${COMMON_TEMPLATES_DIR_NAMES[@]}"; do
+  if [[ "${generateOnlySceneSourceFiles}" == false ]] ; then
+
+    for templateDirName in "${COMMON_TEMPLATES_DIR_NAMES[@]}"; do
+      sourceDir="${SOURCE_DIR}/${templateDirName}"
+      targetDir="${installDir}"
+      
+      # copy whole templates
+      targetDir="${installDir}/${templateDirName}"
+      if [ -d "${targetDir}" ]; then
+        rm -r "${targetDir}"
+      fi
+      mkdir -p "${targetDir}"
+      cp -r "${sourceDir}" "${installDir}"
+      
+      OIFS="$IFS"
+      IFS=$'\n'
+      # copy all swift files from template dir to target (scene) dir
+      for files in "`find "${sourceDir}" -type f -name "*.swift"`"; do
+        for file in "$files"; do
+          # override source file (by adding top source file comment)
+          generateSourceFile "$file" "${targetDir}"
+        done
+      done
+      IFS="$OIFS"
+    done
+
+  else
+
+    for templateDirName in "${SCENE_TEMPLATES_DIR_NAMES[@]}"; do
+      sourceDir="${SOURCE_DIR}/${templateDirName}"
+      targetDir="${installDir}"
+      
+      OIFS="$IFS"
+      IFS=$'\n'
+      # copy all swift files from template dir to target (scene) dir
+      for files in "`find "${sourceDir}" -type f -name "*.swift"`"; do
+        for file in "$files"; do
+          # override source file (by adding top source file comment)
+          generateSourceFile "$file" "${targetDir}"
+        done
+      done
+      IFS="$OIFS"
+    done
+
+  fi
+
+  for templateDirName in "${dirNames[@]}"; do
     sourceDir="${SOURCE_DIR}/${templateDirName}"
     targetDir="${installDir}"
     
     # copy whole templates
-    if [[ "${generateOnlySourceFile}" == false ]] ; then
+    if [[ "${generateOnlySceneSourceFiles}" == false ]] ; then
       targetDir="${installDir}/${templateDirName}"
 
       if [ -d "${targetDir}" ]; then
@@ -75,9 +126,11 @@ function generateCommonTemplates() {
     OIFS="$IFS"
     IFS=$'\n'
     # copy all swift files from template dir to target (scene) dir
-    for f in "`find "${sourceDir}" -type f -name "*.swift"`"; do
-      # override source file (by adding top source file comment)
-      generateSourceFile "$f" "${targetDir}"
+    for files in "`find "${sourceDir}" -type f -name "*.swift"`"; do
+      for file in "$files"; do
+        # override source file (by adding top source file comment)
+        generateSourceFile "$file" "${targetDir}"
+      done
     done
     IFS="$OIFS"
   done

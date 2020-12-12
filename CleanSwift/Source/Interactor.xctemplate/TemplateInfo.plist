@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultCompletionName</key>
-	<string>MyScene</string>
+	<string>Some</string>
 	<key>Description</key>
 	<string>This generates a new interactor using Uncle Bob&apos;s clean architecture. Your business logic goes here.</string>
 	<key>Kind</key>
@@ -12,7 +12,7 @@
 	<array>
 		<dict>
 			<key>Default</key>
-			<string>MyScene</string>
+			<string>Some</string>
 			<key>Description</key>
 			<string>The name of the scene to create</string>
 			<key>Identifier</key>

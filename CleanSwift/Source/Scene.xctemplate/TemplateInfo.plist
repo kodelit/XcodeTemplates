@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultCompletionName</key>
-	<string>MyScene</string>
+	<string>Some</string>
 	<key>Description</key>
 	<string>This generates a new scene using Uncle Bob&apos;s clean architecture. It consists of the view controller, interactor, presenter, and router. You can then create individual workers to supplement the interactor.</string>
 	<key>Kind</key>
@@ -12,7 +12,7 @@
 	<array>
 		<dict>
 			<key>Default</key>
-			<string>MyScene</string>
+			<string>Some</string>
 			<key>Description</key>
 			<string>The name of the scene to create</string>
 			<key>Identifier</key>
@@ -36,7 +36,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Assembler</string>
+			<string>___VARIABLE_sceneName:identifier___SceneAssembler</string>
 			<key>Description</key>
 			<string>The assembler file name</string>
 			<key>Identifier</key>
@@ -50,7 +50,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___ViewController</string>
+			<string>___VARIABLE_sceneName:identifier___SceneViewController</string>
 			<key>Description</key>
 			<string>The view controller name</string>
 			<key>Identifier</key>
@@ -64,7 +64,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Interactor</string>
+			<string>___VARIABLE_sceneName:identifier___SceneInteractor</string>
 			<key>Description</key>
 			<string>The interactor name</string>
 			<key>Identifier</key>
@@ -78,7 +78,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Presenter</string>
+			<string>___VARIABLE_sceneName:identifier___ScenePresenter</string>
 			<key>Description</key>
 			<string>The presenter name</string>
 			<key>Identifier</key>
@@ -106,7 +106,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Worker</string>
+			<string>___VARIABLE_sceneName:identifier___SceneWorker</string>
 			<key>Description</key>
 			<string>The worker name</string>
 			<key>Identifier</key>
@@ -120,7 +120,7 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Models</string>
+			<string>___VARIABLE_sceneName:identifier___SceneModels</string>
 			<key>Description</key>
 			<string>The model file name</string>
 			<key>Identifier</key>

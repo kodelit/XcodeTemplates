@@ -1,16 +1,16 @@
 @testable import ___PROJECTNAMEASIDENTIFIER___
 import XCTest
 
-class ___VARIABLE_sceneName___InteractorTests: XCTestCase {
+class ___VARIABLE_sceneName___SceneInteractorTests: XCTestCase {
     // MARK: Subject under test
 
-    var sut: ___VARIABLE_sceneName___Interactor!
+    var sut: ___VARIABLE_sceneName___SceneInteractor!
 
     // MARK: Test lifecycle
 
     override func setUp() {
         super.setUp()
-        setup___VARIABLE_sceneName___Interactor()
+        setup___VARIABLE_sceneName___SceneInteractor()
     }
 
     override func tearDown() {
@@ -19,16 +19,16 @@ class ___VARIABLE_sceneName___InteractorTests: XCTestCase {
 
     // MARK: Test setup
 
-    func setup___VARIABLE_sceneName___Interactor() {
-        sut = ___VARIABLE_sceneName___Interactor()
+    func setup___VARIABLE_sceneName___SceneInteractor() {
+        sut = ___VARIABLE_sceneName___SceneInteractor()
     }
 
     // MARK: Test doubles
 
-    class ___VARIABLE_sceneName___PresentationLogicSpy: ___VARIABLE_sceneName___PresentationLogic {
+    class ___VARIABLE_sceneName___ScenePresentationLogicSpy: ___VARIABLE_sceneName___ScenePresentationLogic {
         var presentSomethingCalled = false
 
-        func present(response: ___VARIABLE_sceneName___.Something.Response) {
+        func present(response: ___VARIABLE_sceneName___Scene.Something.Response) {
             presentSomethingCalled = true
         }
     }
@@ -37,9 +37,9 @@ class ___VARIABLE_sceneName___InteractorTests: XCTestCase {
 
     func testDoSomething() {
         // Given
-        let spy = ___VARIABLE_sceneName___PresentationLogicSpy()
+        let spy = ___VARIABLE_sceneName___ScenePresentationLogicSpy()
         sut.presenter = spy
-        let request = ___VARIABLE_sceneName___.Something.Request()
+        let request = ___VARIABLE_sceneName___Scene.Something.Request()
 
         // When
         sut.handle(request: request)
