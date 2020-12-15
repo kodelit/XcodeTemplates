@@ -1,9 +1,21 @@
 import Foundation
 
+// MARK: - Module Business Logic Interface
+
+/// Module business logic protocol.
+///
+/// An interface for the centralized/common logic for every scene and interface instance (ResidentsController) of the module.
+/// - note: In most cases there should be only one instance of the interface in the application.
+internal protocol ___VARIABLE_moduleName___ModuleBusinessLogic {
+}
+
+// MARK: - Default Implementation
+
 /// The centralized/common logic for every scene and interface instance of the module.
 ///
-/// - warning: In most cases there should be only one instance of the manager in the application and it is impemented having that in mind.
-class ___VARIABLE_moduleName___Manager {
+/// It is the default implementation of the module logic protocol.
+/// - warning: In most cases there should be only one instance of the Service in the application and it is impemented having that in mind.
+class ___VARIABLE_moduleName___Service {
     private let updateHandlersList = HandlersList<___VARIABLE_moduleName___Controller>()
 
     init() {
@@ -43,7 +55,7 @@ class ___VARIABLE_moduleName___Manager {
 }
 
 /// Service protocol implementation
-extension ___VARIABLE_moduleName___Manager: ___VARIABLE_moduleName___Service {
+extension ___VARIABLE_moduleName___Service: ___VARIABLE_moduleName___ModuleBusinessLogic {
     //func getData() -> ___VARIABLE_moduleName___Data {
     //    var data = read { data }
     //

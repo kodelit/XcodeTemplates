@@ -22,15 +22,11 @@ class ___VARIABLE_productName___SceneRouter: NSObject {
         viewController.assembleIfNeeded()
         return viewController
     }
-
-    // MARK: - ___VARIABLE_productName___SceneAssembling
-
-    private(set) var isSceneAssembled = false
 }
 
 extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneAssembling {
     /// Assembles the scene by creating and assigning all components of the scene and its dependencies if not done already.
-    func assembleIfNeeded(_ viewController: ___VARIABLE_productName___SceneViewController) {
+    func assembleIfNeeded(_ viewController: ___VARIABLE_productName___SceneViewController, isAssembled: inout Bool) {
         guard !isSceneAssembled else { return }
         isSceneAssembled = true
 

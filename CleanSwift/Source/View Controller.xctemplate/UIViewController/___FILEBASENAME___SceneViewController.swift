@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ___VARIABLE_sceneName___SceneAssembling {
-    func assembleIfNeeded(_: ___VARIABLE_sceneName___SceneViewController)
+    func assembleIfNeeded(_: ___VARIABLE_sceneName___SceneViewController, isAssembled: inout Bool)
 }
 
 protocol ___VARIABLE_sceneName___SceneBusinessLogic {
@@ -42,17 +42,21 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
 
     // MARK: Setup
 
+    private(set) var isAssembled = false
+
     /// Assembles the scene by creating and assigning all components of the scene and its dependencies if not done already.
     func assembleIfNeeded() {
         // !!!: Remove the following line if you don't need assembler, because you perform the assembling somewhere else
         assert(assembler != nil, "Assembler not set.")
-        assembler?.assembleIfNeeded(self)
+        assembler?.assembleIfNeeded(self, isAssembled: &isAssembled)
     }
 
     /// Invoked at the end of init methods.
     ///
     /// Resposible for post init configuration of the controller, before view is loaded.
     func setup() {
+        // default assembler, is required if the controller is created by the storyboard
+        //assembler = ___VARIABLE_sceneName___SceneRouter()
     }
 
     // MARK: Routing
