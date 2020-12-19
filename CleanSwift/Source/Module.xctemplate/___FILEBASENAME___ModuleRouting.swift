@@ -1,6 +1,9 @@
 import Foundation
 
 public protocol ___VARIABLE_moduleName___ModuleRouting {
+    /// Set to handle navigation backward/dismissing the root scene of the module.
+    var sceneExitHandler: ((_ rootViewController: UIViewController) -> Void)? { get set }
+
     /// Root scene view controller instance.
     ///
     /// - note: There is only one instance of the scene per module router,

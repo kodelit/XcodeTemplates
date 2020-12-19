@@ -39,11 +39,6 @@ extension ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneB
         case .viewDidLoad:
             let viewModel = ___VARIABLE_sceneName___Scene.ViewModel()
             view?.display(viewModel: viewModel)
-
-        //case let .deselectRow(at: indexPath):
-        //    view?.display(update: .deselectRow(at: indexPath, animated: true))
-
-        //default: break
         }
     }
 

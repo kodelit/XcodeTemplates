@@ -18,9 +18,9 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
     ///
     /// Assembling is performed at the beginning of the `viewDidLoad()` or on demand with `assembleIfNeeded()` method. However assembler might not be set if you need to perform the assembling somewhere else.
     var assembler: ___VARIABLE_sceneName___SceneAssembling?
-    var interactor: ___VARIABLE_sceneName___SceneBusinessLogic?
+    //var interactor: ___VARIABLE_sceneName___SceneBusinessLogic?
     // or in simple applications, ViewModel can replace Presenter and Interactor put together
-    //var viewModel: ___VARIABLE_sceneName___SceneBusinessLogic?
+    var viewModel: ___VARIABLE_sceneName___SceneBusinessLogic?
 
     typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___SceneStoryboardRouting
     /// Router in the view controller is used only in case of routing with UIStoryboardSegue (optional), in other cases view controller should send request to the interactor/viewModel.
@@ -76,8 +76,9 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
         super.viewDidLoad()
         assembleIfNeeded()
         loadSubviews()
-        interactor?.handle(event: .viewDidLoad)
-        //viewModel?.handle(event: .viewDidLoad)
+        //interactor?.handle(event: .viewDidLoad)
+        // or
+        viewModel?.handle(event: .viewDidLoad)
     }
 
     // MARK: Actions
@@ -100,7 +101,7 @@ extension ___VARIABLE_sceneName___SceneViewController {
         //view.addSubview(button)
         //self.button = button
 
-        setupLayout()
+        setupSubviews()
     }
 
     /// Performs initial setup of the loaded subviews.

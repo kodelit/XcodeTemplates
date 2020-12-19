@@ -92,7 +92,6 @@ enum ___VARIABLE_sceneName___Scene {
 
     /// Request for the module.
     enum Request {
-
     }
 
     // MARK: - Routing (Interactor/ViewModel -> Router)
@@ -101,5 +100,7 @@ enum ___VARIABLE_sceneName___Scene {
     ///
     /// - note: Provides cases for simple navigation but also is a namespace for data structures of more complex navigation.
     enum Destination {
+        // Represents end of the scene or navigation backward
+        case exit
     }
 }

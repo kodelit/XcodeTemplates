@@ -22,32 +22,39 @@ class ___VARIABLE_productName___SceneRouter: NSObject {
         viewController.assembleIfNeeded()
         return viewController
     }
+
+    // MARK: ___VARIABLE_productName___ModuleRouting
+
+    /// Set to handle navigation backward/dismissing the root scene of the module.
+    var sceneExitHandler: ((_ rootViewController: UIViewController) -> Void)?
 }
+
+// MARK: - ___VARIABLE_productName___SceneAssembling
 
 extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneAssembling {
     /// Assembles the scene by creating and assigning all components of the scene and its dependencies if not done already.
     func assembleIfNeeded(_ viewController: ___VARIABLE_productName___SceneViewController, isAssembled: inout Bool) {
-        guard !isSceneAssembled else { return }
-        isSceneAssembled = true
+        guard !isAssembled else { return }
+        isAssembled = true
 
         // Basic assembling
         let router = self
         viewController.router = router // strong
         router.viewController = viewController // weak
 
-        let interactor = ___VARIABLE_sceneName___SceneInteractor()
-        let presenter = ___VARIABLE_sceneName___ScenePresenter()
-        interactor.presenter = presenter // strong
-        presenter.view = viewController // weak
-        presenter.router = router // weak
-        viewController.interactor = interactor // strong
-        router.dataStore = interactor // strong
+        //let interactor = ___VARIABLE_sceneName___SceneInteractor()
+        //let presenter = ___VARIABLE_sceneName___ScenePresenter()
+        //interactor.presenter = presenter // strong
+        //presenter.view = viewController // weak
+        //presenter.router = router // weak
+        //viewController.interactor = interactor // strong
+        //router.dataStore = interactor // strong
         // or
-        //let viewModel = ___VARIABLE_sceneName___SceneViewModel()
-        //viewModel.view = viewController // weak
-        //viewController.viewModel = viewModel // strong
-        //viewModel.router = router // weak
-        //router.dataStore = viewModel // strong
+        let viewModel = ___VARIABLE_sceneName___SceneViewModel()
+        viewModel.view = viewController // weak
+        viewController.viewModel = viewModel // strong
+        viewModel.router = router // weak
+        router.dataStore = viewModel // strong
 
         // Dependencies
         //let worker = ___VARIABLE_sceneName___SceneWorker()
@@ -62,23 +69,28 @@ protocol ___VARIABLE_productName___SceneDataStoring {
 }
 
 extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneRouting {
-    func route(to destination: ___VARIABLE_productName___Scene.Destination.<#Destination#>) {
-        //let targetRouter = <#Destination#>SceneRouter()
-        //guard let sourceDataStore = dataStore,
-        //      // Load the view controller first to be sure that the target data strore is loaded
-        //      let targetViewController = targetRouter.getSceneViewController(),
-        //      var targetDataStore = targetRouter.dataStore else {
-        //    return
-        //}
-        //passData(source: sourceDataStore, destination: &targetDataStore)
-        //viewController?.navigationController?.pushViewController(targetViewController, animated: true)
-        // or
-        //viewController?.present(targetViewController, animated: true, completion: nil)
+    func route(to destination: ___VARIABLE_productName___Scene.Destination) {
+        switch destination {
+        case .exit:
+            guard let viewController = viewController else { return }
+            sceneExitHandler?(viewController)
+        }
     }
 
-    // MARK: Passing data
-
-    //func passData(source: ___VARIABLE_productName___SceneDataStoring, destination: inout <#Destination#>SceneDataStoring) {
+    //func route(to destination: ___VARIABLE_productName___Scene.Destination.<#Destination#>) {
+    //    let targetRouter = <#Destination#>SceneRouter()
+    //    guard let sourceDataStore = dataStore,
+    //          // Load the view controller first to be sure that the target data strore is loaded
+    //          let targetViewController = targetRouter.getSceneViewController(),
+    //          var targetDataStore = targetRouter.dataStore else {
+    //        return
+    //    }
+    //    // Data Passing
+    //    targetDataStore.someValue = destination.value
+    //
+    //    viewController?.navigationController?.pushViewController(targetViewController, animated: true)
+    //    // or
+    //    viewController?.present(targetViewController, animated: true, completion: nil)
     //}
 }
 
