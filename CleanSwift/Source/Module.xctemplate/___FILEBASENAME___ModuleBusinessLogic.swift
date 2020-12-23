@@ -4,8 +4,8 @@ import Foundation
 
 /// Module business logic protocol.
 ///
-/// An interface for the centralized/common logic for every scene and interface instance (ResidentsController) of the module.
-/// - note: In most cases there should be only one instance of the interface in the application.
+/// An interface for the centralized/common logic for every scene and interface instance of the module.
+/// - note: In most cases there should be only one instance of this interface in the application.
 internal protocol ___VARIABLE_moduleName___ModuleBusinessLogic {
 }
 
@@ -14,7 +14,7 @@ internal protocol ___VARIABLE_moduleName___ModuleBusinessLogic {
 /// The centralized/common logic for every scene and interface instance of the module.
 ///
 /// It is the default implementation of the module logic protocol.
-/// - warning: In most cases there should be only one instance of the Service in the application and it is impemented having that in mind.
+/// - warning: In most cases there should be only one instance of the Service in the application and it is implemented having that in mind.
 class ___VARIABLE_moduleName___Service {
     private let updateHandlersList = HandlersList<___VARIABLE_moduleName___Controller>()
 
@@ -45,10 +45,14 @@ class ___VARIABLE_moduleName___Service {
     /// Property access mutex
     private lazy var mutex = DispatchQueue(label: String(describing: ObjectIdentifier(self)), attributes: .concurrent)
 
+    /// Method that should encapsulates any read operation from the shared storage or batch of operations, but only read operations, If any part of the transaction is a write operation you should use `write(_:)` method instead.
     private func read<T>(_ transaction: () -> T) -> T {
         mutex.sync(execute: transaction)
     }
 
+    /// Safe write.
+    ///
+    /// If any part of the transaction is a write operation to the shared storage you should use this method to encapsulate such transaction.
     private func write<T>(_ transaction: () throws -> T) rethrows -> T {
         try mutex.sync(flags: .barrier) { try transaction() }
     }

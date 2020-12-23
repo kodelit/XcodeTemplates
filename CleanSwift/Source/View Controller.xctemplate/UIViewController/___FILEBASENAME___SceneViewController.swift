@@ -9,9 +9,9 @@ protocol ___VARIABLE_sceneName___SceneBusinessLogic {
     func handle(action: ___VARIABLE_sceneName___Scene.UserAction)
 }
 
-@objc protocol ___VARIABLE_sceneName___SceneStoryboardRouting {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-}
+//@objc protocol ___VARIABLE_sceneName___SceneStoryboardRouting {
+//    //func routeToSomewhere(segue: UIStoryboardSegue?)
+//}
 
 class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSubclass___ {
     /// Assembler of the whole scene and its dependencies.
@@ -22,13 +22,13 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
     // or in simple applications, ViewModel can replace Presenter and Interactor put together
     var viewModel: ___VARIABLE_sceneName___SceneBusinessLogic?
 
-    typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___SceneStoryboardRouting
-    /// Router in the view controller is used only in case of routing with UIStoryboardSegue (optional), in other cases view controller should send request to the interactor/viewModel.
-    var router: Router?
+    ///  Holds the instance of the root object of the scene.
+    ///  If we don't use storyboard segues retaining the router reference is the only purpose of this property.
+    var router: AnyObject?
 
     //@IBOutlet weak var nameTextField: UITextField!
 
-    // MARK: Object lifecycle
+    // MARK: - Object lifecycle
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -61,6 +61,10 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
 
     // MARK: Routing
 
+    //typealias Router = NSObjectProtocol & ___VARIABLE_sceneName___SceneStoryboardRouting
+    // /// Router in the view controller is used only in case of routing with UIStoryboardSegue (optional), in other cases view controller should send request to the interactor/viewModel.
+    //var router: Router?
+    //
     //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     //    if let scene = segue.identifier {
     //        let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
@@ -81,11 +85,18 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
         viewModel?.handle(event: .viewDidLoad)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //interactor?.handle(event: .viewWillAppear)
+        // or
+        viewModel?.handle(event: .viewWillAppear)
+    }
+
     // MARK: Actions
 
-    //@IBAction func onSomeButton(_ sender: UIButton) {
-    //    interactor?.handle(action: .someButtonAction)
-    //}
+    @IBAction func onBackButton() {
+        viewModel?.handle(action: .backButton)
+    }
 }
 
 // MARK: - Loading subviews & layout
@@ -96,10 +107,6 @@ extension ___VARIABLE_sceneName___SceneViewController {
     ///
     /// Inveked in `viewDidLoad()` before the interactor will handle the `.viewDidLoad` event
     func loadSubviews() {
-        //let button = UIButton(type: .custom)
-        //button.translatesAutoresizingMaskIntoConstraints = false
-        //view.addSubview(button)
-        //self.button = button
 
         setupSubviews()
     }
@@ -108,7 +115,6 @@ extension ___VARIABLE_sceneName___SceneViewController {
     ///
     /// Invoked at the end of the `loadSubviews()` method
     func setupSubviews() {
-        // button.isEnabled = false
 
         setupLayout()
     }
@@ -117,30 +123,23 @@ extension ___VARIABLE_sceneName___SceneViewController {
     ///
     /// Invoked at the end of the `setupSubviews()` method
     func setupLayout() {
-        //guard let view = viewController.view else { return }
+
     }
 }
 
 // MARK: - DisplayLogic
 
 extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___SceneDisplayLogic {
-    func display(viewModel: ___VARIABLE_sceneName___Scene.ViewModel) {
-        //tableData = viewModel
+    func display(_ initialSetup: ___VARIABLE_sceneName___Scene.InitialSetup) {
         //tableView.reloadData()
     }
 
-    func display(update: ___VARIABLE_sceneName___Scene.Update) {
-        //nameTextField.text = update.name
-        //switch update {
-        //case let .deselectRow(at: indexPath, animated: animated):
-        //    break
-        //default: break
-        //}
+    func display(_ update: ___VARIABLE_sceneName___Scene.Update) {
     }
 }
 
 // MARK: - Xcode Preview
-// Works from Xcode 11 and macOS 10.15
+// swiftlint:disable type_name
 
 //#if canImport(SwiftUI) && DEBUG
 //import SwiftUI
@@ -151,7 +150,7 @@ extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___S
 //
 //    func makeUIViewController(context: Context) -> ViewController {
 //        // let bundle = Bundle(for: ___VARIABLE_sceneName___SceneViewController.self)
-//        // let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+//        // let storyboard = UIStoryboard(name: "___VARIABLE_sceneName___", bundle: bundle)
 //        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___SceneViewController")
 //        return ViewController(nibName: nil, bundle: nil)
 //    }
@@ -166,3 +165,5 @@ extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___S
 //    }
 //}
 //#endif
+
+// swiftlint:enable type_name

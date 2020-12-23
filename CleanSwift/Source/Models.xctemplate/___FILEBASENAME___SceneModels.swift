@@ -1,10 +1,43 @@
 import UIKit
 
 enum ___VARIABLE_sceneName___Scene {
+    // MARK: - Request (Interactor/ViewModel -> Module/Outside)
+
+    /// External request for the module/outside the scene.
+    enum Request {
+        struct Data {
+            // Some params here
+            // ...
+
+            let success: () -> Void
+            let failure: () -> Void?
+        }
+    }
+
+    // MARK: - Routing (Interactor/ViewModel -> Router)
+
+    //enum ExitReason {
+    //    case none
+    //}
+
+    //enum ExitResult {
+    //    case none
+    //}
+
+    /// Routing destination descriptor.
+    ///
+    /// - note: Provides cases for simple navigation but also is a namespace for data structures of more complex navigation.
+    enum Destination {
+        // Represents end of the scene or navigation backward
+        case exit
+        //case exit(reason: ExitReason = .none)
+        //case exit(result: ExitResult = .none)
+    }
+
     // MARK: - View Model (Presenter/ViewModel -> UI)
 
     /// Model to display
-    struct ViewModel {
+    struct InitialSetup {
     }
 
     /// Update of the part of the UI
@@ -19,43 +52,19 @@ enum ___VARIABLE_sceneName___Scene {
         //}
     }
 
-    // MARK: Use cases
-
-    // Models encapsulated in the use case
-    //enum Something {
-    //    struct Request {
-    //    }
-    //    struct Response {
-    //    }
-    //    struct ViewModel {
-    //    }
-    //}
-
     // MARK: - Request (UI -> Interactor/ViewModel)
 
     /// UI Lifecycle event forwarding
     enum LifecycleEvent {
-        case viewDidLoad
+        case viewDidLoad, viewWillAppear
     }
-
-    /// Table view lifecycle event (data source or delegate forwarding)
-    //enum TableEvent {
-    //    /// Forwarding of the UITableViewDataSource `func tableView(_:commit:forRowAt:)`.
-    //    /// Indicates that data source (view model) has to be updated
-    //    case commit(editingStyle: UITableViewCell.EditingStyle, indexPath: IndexPath)
-    //    /// Forwarding of the UITableViewDataSource `func tableView(_:moveRowAt:to:)`.
-    //    /// Indicates that data source (view model) has to be updated
-    //    case move(rowAt: IndexPath, to: IndexPath)
-    //
-    //    case didSelectRow(at: IndexPath)
-    //    case didDeselectRow(at: IndexPath)
-    //}
 
     /// User Interface request
     ///
     /// - note: Provides cases for simple requests but also is a namespace for data structures of more complex requests.
     enum UserAction {
-        //case buttonAction
+        case backButton
+        //case didSelectRow(at: IndexPath)
     }
 
     // MARK: - Response (Interactor -> Presenter)
@@ -76,31 +85,7 @@ enum ___VARIABLE_sceneName___Scene {
 
     enum Response {
         // MARK: The responses of the Interactor on the `LifecycleEvent` or on the `UserAction`
-        case reloadData
+        case initialSetup
         //case deselectRow(at: IndexPath)
-
-        //struct ExampleResponse {
-        //}
-
-        // MARK: The responses of the Interactor on the mudule `___VARIABLE_moduleName___.Request`
-
-        //struct ExampleResponseForModuleRequest {
-        //}
-    }
-
-    // MARK: - Request (Interactor/ViewModel -> Module)
-
-    /// Request for the module.
-    enum Request {
-    }
-
-    // MARK: - Routing (Interactor/ViewModel -> Router)
-
-    /// Routing destination descriptor.
-    ///
-    /// - note: Provides cases for simple navigation but also is a namespace for data structures of more complex navigation.
-    enum Destination {
-        // Represents end of the scene or navigation backward
-        case exit
     }
 }

@@ -7,11 +7,11 @@ public protocol ___VARIABLE_moduleName___ModuleRouting {
     /// Root scene view controller instance.
     ///
     /// - note: There is only one instance of the scene per module router,
-    /// and there is only one module router instance per module access controller.
+    /// and there might be only one module router instance per module access controller instance.
     func startScene() -> UIViewController?
 
-    /// Allows to pass data to the module if scenes has been loaded from storyboard
-    //func start(with data: ___VARIABLE_moduleName___Module.InputData)
+    // /// Allows to pass data to the module if the scene has been loaded from storyboard
+    //func configure(with data: ___VARIABLE_moduleName___Module.InputData)
 }
 
 extension ___VARIABLE_moduleName___SceneRouter: ___VARIABLE_moduleName___ModuleRouting {
@@ -19,7 +19,7 @@ extension ___VARIABLE_moduleName___SceneRouter: ___VARIABLE_moduleName___ModuleR
         return getSceneViewController()
     }
 
-    func start(with data: ResidentsModule.InputData) {
-        //self.dataStore?.someValue = data.someValue
-    }
+    //func configure(with data: ResidentsModule.InputData) {
+    //    //self.dataStore?.someValue = data.someValue
+    //}
 }

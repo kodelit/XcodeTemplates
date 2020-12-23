@@ -23,9 +23,7 @@ class ___VARIABLE_productName___SceneRouter: NSObject {
         return viewController
     }
 
-    // MARK: ___VARIABLE_productName___ModuleRouting
-
-    /// Set to handle navigation backward/dismissing the root scene of the module.
+    /// Set to handle navigation backward/dismissing the scene.
     var sceneExitHandler: ((_ rootViewController: UIViewController) -> Void)?
 }
 
@@ -55,10 +53,6 @@ extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___Scene
         viewController.viewModel = viewModel // strong
         viewModel.router = router // weak
         router.dataStore = viewModel // strong
-
-        // Dependencies
-        //let worker = ___VARIABLE_sceneName___SceneWorker()
-        //interactor.worker = worker
     }
 }
 
@@ -88,9 +82,14 @@ extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___Scene
     //    // Data Passing
     //    targetDataStore.someValue = destination.value
     //
+    //    targetRouter.sceneExitHandler = { [weak self] _ in
+    //        self?.viewController?.navigationController?.popViewController(animated: true)
+    //        // or
+    //        //self?.viewController?.dismiss(animated: true, completion: nil)
+    //    }
     //    viewController?.navigationController?.pushViewController(targetViewController, animated: true)
     //    // or
-    //    viewController?.present(targetViewController, animated: true, completion: nil)
+    //    //viewController?.present(targetViewController, animated: true, completion: nil)
     //}
 }
 
