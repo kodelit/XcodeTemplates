@@ -7,6 +7,10 @@ import Foundation
 /// An interface for the centralized/common logic for every scene and interface instance of the module.
 /// - note: In most cases there should be only one instance of this interface in the application.
 internal protocol ___VARIABLE_moduleName___ModuleBusinessLogic {
+    typealias ModuleData = <#DataType#>
+
+    func getData() -> ModuleData
+    func update(with: ModuleData)
 }
 
 // MARK: - Default Implementation
@@ -26,17 +30,18 @@ class ___VARIABLE_moduleName___Service {
 
     //@OptionalUserDefault(key: "___VARIABLE_moduleName___.data")
     //private static var sharedData: Data?
-    private var data = ___VARIABLE_moduleName___Data()
+    private var data = ModuleData()
 
     //private func reloadData() {
     //    let jsonEncoder = JSONDecoder()
     //    do {
     //        try write {
     //            guard let sharedData = Self.sharedData else { return }
-    //            data = try jsonEncoder.decode(___VARIABLE_moduleName___Data.self, from: sharedData)
+    //            data = try jsonEncoder.decode(ModuleData.self, from: sharedData)
     //        }
     //    } catch {
-    //        DPrint("Could not restore the ResidentsData form the storage.")
+    //        assertionFailure("[___VARIABLE_moduleName___Service] Could not restore the ModuleData form the storage.")
+    //        DPrint("[___VARIABLE_moduleName___Service] Could not restore the ModuleData form the storage.")
     //    }
     //}
 
@@ -53,39 +58,39 @@ class ___VARIABLE_moduleName___Service {
     /// Safe write.
     ///
     /// If any part of the transaction is a write operation to the shared storage you should use this method to encapsulate such transaction.
-    private func write<T>(_ transaction: () throws -> T) rethrows -> T {
+    private func write<T>(_ transaction: @autoclosure () throws -> T) rethrows -> T {
         try mutex.sync(flags: .barrier) { try transaction() }
     }
 }
 
 /// Service protocol implementation
 extension ___VARIABLE_moduleName___Service: ___VARIABLE_moduleName___ModuleBusinessLogic {
-    //func getData() -> ___VARIABLE_moduleName___Data {
-    //    var data = read { data }
-    //
-    //    // some optional data modifications/filtering
-    //
-    //    return data
-    //}
+    func getData() -> ModuleData {
+        var result = read { data }
+        // some optional data modifications/filtering
 
-    //func update(with: ...) {
-    //    let jsonEncoder = JSONEncoder()
-    //    do {
-    //        let data: ___VARIABLE_moduleName___Data = try write {
-    //            var udpatedData = self.data
-    //
-    //            // Modify `udpatedData` here
-    //
-    //            Self.sharedData = try jsonEncoder.encode(udpatedData)
-    //            // if encoding fails data will remain unchanged
-    //            self.data = udpatedData
-    //            return udpatedData
-    //        }
-    //        self.updateHandlersList.handlers.forEach({ controller in
-    //            controller.dataUpdateHandler?(data)
-    //        })
-    //    } catch {
-    //        DPrint("Could not update the ___VARIABLE_moduleName___Data.")
-    //    }
-    //}
+        return result
+    }
+
+    func update(with data: ModuleData) {
+        let jsonEncoder = JSONEncoder()
+        do {
+            let data: ModuleData = try write {
+                var updatedData = self.data
+
+                // Modify `updatedData` here
+
+                Self.sharedData = try jsonEncoder.encode(updatedData)
+                // if encoding fails data will remain unchanged
+                self.data = updatedData
+                return updatedData
+            }
+            self.updateHandlersList.handlers.forEach({ controller in
+                controller.dataUpdateHandler?(data)
+            })
+        } catch {
+            assertionFailure("[___VARIABLE_moduleName___Service] Could not update the ModuleData.")
+            print("[___VARIABLE_moduleName___Service] Could not update the ModuleData.")
+        }
+    }
 }

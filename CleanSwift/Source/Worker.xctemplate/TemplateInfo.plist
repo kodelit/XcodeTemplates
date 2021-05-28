@@ -54,7 +54,7 @@
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>5</string>
+	<string>21</string>
 	<key>Summary</key>
 	<string>This generates a new worker to perform your specific business logic.</string>
 </dict>

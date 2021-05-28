@@ -40,26 +40,25 @@ extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___Scene
         viewController.router = router // strong
         router.viewController = viewController // weak
 
-        //let interactor = ___VARIABLE_sceneName___SceneInteractor()
-        //let presenter = ___VARIABLE_sceneName___ScenePresenter()
-        //interactor.presenter = presenter // strong
-        //presenter.view = viewController // weak
-        //presenter.router = router // weak
-        //viewController.interactor = interactor // strong
-        //router.dataStore = interactor // strong
-        // or
-        let viewModel = ___VARIABLE_sceneName___SceneViewModel()
-        viewModel.view = viewController // weak
-        viewController.viewModel = viewModel // strong
-        viewModel.router = router // weak
-        router.dataStore = viewModel // strong
+        let interactor = ___VARIABLE_sceneName___SceneInteractor()
+        let presenter = ___VARIABLE_sceneName___ScenePresenter()
+        interactor.presenter = presenter // strong
+        presenter.view = viewController // weak
+        presenter.router = router // weak
+        viewController.interactor = interactor // strong
+        router.dataStore = interactor // strong
     }
 }
 
 // MARK: - ___VARIABLE_productName___Scene Routing Logic
 
 protocol ___VARIABLE_productName___SceneDataStoring {
-    //var name: String { get set }
+    var screenTitle: String? { get set }
+
+    /// Indicates that the data should be reloaded from the local storage
+    var isReloadRequired: Bool { get set }
+    /// Indicates that the data should be updated from the remote storage
+    var isUpdateRequired: Bool { get set }
 }
 
 extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneRouting {
@@ -95,35 +94,35 @@ extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___Scene
 
 // MARK: - ___VARIABLE_productName___Scene Storyboard Routing
 
-protocol ___VARIABLE_productName___SceneDataPassing {
-    /// ___VARIABLE_productName___Scene data store.
-    var dataStore: ___VARIABLE_productName___SceneDataStoring? { get }
-}
-
-extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneStoryboardRouting, ___VARIABLE_productName___SceneDataPassing {
-    //func routeToSomewhere(segue: UIStoryboardSegue?) {
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! <#Destination#>ViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passData(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "<#Destination#>ViewController") as! <#Destination#>ViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passData(source: dataStore!, destination: &destinationDS)
-    //    navigate(source: viewController!, destination: destinationVC)
-    //  }
-    //}
-
-    // MARK: Navigation
-
-    //func navigate(source: ___VARIABLE_productName___SceneViewController, destination: <#Destination#>ViewController) {
-    //  source?.present(destination, animated: true, completion: nil)
-    //}
-
-    // MARK: Passing data
-
-    //func passData(source: ___VARIABLE_productName___SceneDataStoring, destination: inout <#Destination#>DataStore) {
-    //  destination.name = source.name
-    //}
-}
+//protocol ___VARIABLE_productName___SceneDataPassing {
+//    /// ___VARIABLE_productName___Scene data store.
+//    var dataStore: ___VARIABLE_productName___SceneDataStoring? { get }
+//}
+//
+//extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneStoryboardRouting, ___VARIABLE_productName___SceneDataPassing {
+//    func routeToSomewhere(segue: UIStoryboardSegue?) {
+//      if let segue = segue {
+//        let destinationVC = segue.destination as! <#Destination#>ViewController
+//        var destinationDS = destinationVC.router!.dataStore!
+//        passData(source: dataStore!, destination: &destinationDS)
+//      } else {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let destinationVC = storyboard.instantiateViewController(withIdentifier: "<#Destination#>ViewController") as! <#Destination#>ViewController
+//        var destinationDS = destinationVC.router!.dataStore!
+//        passData(source: dataStore!, destination: &destinationDS)
+//        navigate(source: viewController!, destination: destinationVC)
+//      }
+//    }
+//
+//     MARK: Navigation
+//
+//    func navigate(source: ___VARIABLE_productName___SceneViewController, destination: <#Destination#>ViewController) {
+//      source?.present(destination, animated: true, completion: nil)
+//    }
+//
+//     MARK: Passing data
+//
+//    func passData(source: ___VARIABLE_productName___SceneDataStoring, destination: inout <#Destination#>DataStore) {
+//      destination.name = source.name
+//    }
+//}

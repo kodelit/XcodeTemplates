@@ -18,9 +18,7 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
     ///
     /// Assembling is performed at the beginning of the `viewDidLoad()` or on demand with `assembleIfNeeded()` method. However assembler might not be set if you need to perform the assembling somewhere else.
     var assembler: ___VARIABLE_sceneName___SceneAssembling?
-    //var interactor: ___VARIABLE_sceneName___SceneBusinessLogic?
-    // or in simple applications, ViewModel can replace Presenter and Interactor put together
-    var viewModel: ___VARIABLE_sceneName___SceneBusinessLogic?
+    var interactor: ___VARIABLE_sceneName___SceneBusinessLogic?
 
     ///  Holds the instance of the root object of the scene.
     ///  If we don't use storyboard segues retaining the router reference is the only purpose of this property.
@@ -80,22 +78,18 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
         super.viewDidLoad()
         assembleIfNeeded()
         loadSubviews()
-        //interactor?.handle(event: .viewDidLoad)
-        // or
-        viewModel?.handle(event: .viewDidLoad)
+        interactor?.handle(event: .viewDidLoad)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //interactor?.handle(event: .viewWillAppear)
-        // or
-        viewModel?.handle(event: .viewWillAppear)
+        interactor?.handle(event: .viewWillAppear)
     }
 
     // MARK: Actions
 
     @IBAction func onBackButton() {
-        viewModel?.handle(action: .backButton)
+        interactor?.handle(action: .backButton)
     }
 }
 
@@ -105,7 +99,7 @@ extension ___VARIABLE_sceneName___SceneViewController {
 
     /// Loads subviews after the view is loaded.
     ///
-    /// Inveked in `viewDidLoad()` before the interactor will handle the `.viewDidLoad` event
+    /// The method is invoked in `viewDidLoad()` before the interactor will handle the `.viewDidLoad` event
     func loadSubviews() {
 
         setupSubviews()
@@ -113,7 +107,7 @@ extension ___VARIABLE_sceneName___SceneViewController {
 
     /// Performs initial setup of the loaded subviews.
     ///
-    /// Invoked at the end of the `loadSubviews()` method
+    /// The method is invoked at the end of the `loadSubviews()` method
     func setupSubviews() {
 
         setupLayout()
@@ -121,7 +115,7 @@ extension ___VARIABLE_sceneName___SceneViewController {
 
     /// Performs initial setup of all nessesery layout.
     ///
-    /// Invoked at the end of the `setupSubviews()` method
+    /// The method is invoked at the end of the `setupSubviews()` method
     func setupLayout() {
 
     }
@@ -149,7 +143,7 @@ extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___S
 //    typealias ViewController = ___VARIABLE_sceneName___SceneViewController
 //
 //    func makeUIViewController(context: Context) -> ViewController {
-//        // let bundle = Bundle(for: ___VARIABLE_sceneName___SceneViewController.self)
+//        // let bundle = Bundle(for: ViewController.self)
 //        // let storyboard = UIStoryboard(name: "___VARIABLE_sceneName___", bundle: bundle)
 //        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___SceneViewController")
 //        return ViewController(nibName: nil, bundle: nil)

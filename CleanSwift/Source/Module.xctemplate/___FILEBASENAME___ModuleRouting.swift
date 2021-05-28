@@ -19,7 +19,7 @@ extension ___VARIABLE_moduleName___SceneRouter: ___VARIABLE_moduleName___ModuleR
         return getSceneViewController()
     }
 
-    //func configure(with data: ResidentsModule.InputData) {
+    //func configure(with data: ___VARIABLE_moduleName___Module.InputData) {
     //    //self.dataStore?.someValue = data.someValue
     //}
 }

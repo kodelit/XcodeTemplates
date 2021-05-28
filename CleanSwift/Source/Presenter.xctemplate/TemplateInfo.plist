@@ -54,7 +54,7 @@
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>3</string>
+	<string>10</string>
 	<key>Summary</key>
 	<string>This generates a new presenter using Uncle Bob&apos;s clean architecture. Your presentation logic goes here.</string>
 </dict>

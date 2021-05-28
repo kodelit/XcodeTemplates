@@ -24,10 +24,11 @@
 import Foundation
 import Cocoa
 
-let scriptPath = CommandLine.arguments.first!
-var scriptDirUrl = URL(fileURLWithPath: scriptPath)
-scriptDirUrl.deleteLastPathComponent()
+let scriptPath: String = CommandLine.arguments.first ?? ""
+let scriptDirUrl = URL(fileURLWithPath: scriptPath).deletingLastPathComponent()
 let fileManager = FileManager.default
+
+// MARK: - Arguments parsing
 
 enum Arguments {
     static let arguments = CommandLine.arguments
@@ -67,96 +68,274 @@ enum Option: String, ExpressibleByStringLiteral {
 
 let isRequestingHelp = Arguments.contains(.help)
 
-//let path: String = "~/Library/MobileDevice/Provisioning Profiles/"
-//let profilesDirAbsolutPath = NSString(string: path).expandingTildeInPath
-//print("Path", profilesDirAbsolutPath)
-
-
-let sourceDir = scriptDirUrl.appendingPathComponent("Source")
-let generatedTemplatesDir = scriptDirUrl.appendingPathComponent("Output")
-
 // MARK: - Models
 
-class Architectures {
-    let sourceDir = scriptDirUrl.appendingPathComponent("Source")
-    let generatedTemplatesDir = scriptDirUrl.appendingPathComponent("Output")
+protocol TemlateDirectoryDefinition: CaseIterable, RawRepresentable {
+    static var sourceDir: URL { get }
+    static var outputDir: URL { get }
+    static var installDir: URL { get }
+
+    static var commonTemplates: [Self] { get }
+
+    var name: String { get }
 }
 
-class CleanSwift {
-    static let rootDir = scriptDirUrl.appendingPathComponent("Source")
-    static var sourceDir = rootDir.appendingPathComponent("Source")
-    static let commentFileUrl = sourceDir.appendingPathComponent("SOURCE_FILE_TOP_COMMENT.swift")
+extension TemlateDirectoryDefinition where RawValue == String {
+    static var templateDirectoryExtension: String { ".xctemplate" }
+    var name: String { rawValue.capitalized + Self.templateDirectoryExtension }
+    var sourceDir: URL { Self.sourceDir.appendingPathComponent(name) }
+}
 
-    var fileName = ""
-    var fileNameWithoutExtension = ""
+protocol Templates {
+    associatedtype TemplateDir: TemlateDirectoryDefinition
 
+    var sourceFileTopComment: String { get set }
 
-    let sourceFileTopComment: String
+    func generate() throws
+    func install() throws
+    func generateAndInstall() throws
+}
 
-    let commonTemplatesDirNames = ["Assembler.xctemplate", "Interactor.xctemplate", "Models.xctemplate", "Presenter.xctemplate", "Router.xctemplate", "Worker.xctemplate"]
-    let viewControllerNames = ["UICollectionViewController", "UITableViewController", "UIViewController"]
-
-    let sceneTemplateDirName = "Scene.xctemplate"
-    lazy var sceneTemplateSourceDir = Self.sourceDir.appendingPathComponent(sceneTemplateDirName)
-    let viewControllerTemplateDirName = "View Controller.xctemplate"
-    lazy var viewControllerSourceDir = Self.sourceDir.appendingPathComponent(viewControllerTemplateDirName)
-    lazy var viewControllerSourceFile = viewControllerSourceDir
-        .appendingPathComponent("UIViewController")
-        .appendingPathComponent("___FILEBASENAME___ViewController.swift")
-    let testsTemplatesDirName = "Unit Tests.xctemplate"
-
-    init() throws {
-        sourceFileTopComment = try String(contentsOf: Self.commentFileUrl, encoding: .utf8)
+extension Templates where TemplateDir.RawValue == String {
+    func generateCommonTemplates(installDir: URL) throws {
+        try TemplateDir.commonTemplates.forEach { (dir) in
+            let templateSourceDir = dir.sourceDir
+            let templateTargetDir = installDir.appendingPathComponent(dir.name)
+            try resetTemplateDirectory(templateTargetDir)
+            try copyNonSourceFiles(from: templateSourceDir, to: templateTargetDir)
+            try generateSourceFiles(sourceDir: templateSourceDir, targetDir: templateTargetDir)
+        }
     }
 
-    func getFileName(from url: URL) -> (fileName: String, fileNameWithoutExtension: String) {
-        let fileName = url.lastPathComponent
-        let fileNameWithoutExtension = url.deletingPathExtension().lastPathComponent
-        return (fileName: fileName, fileNameWithoutExtension: fileNameWithoutExtension)
+    /// Removes and creates again the directory
+    func resetTemplateDirectory(_ dir: URL) throws {
+        guard TemplateDir.allCases.contains(where: { (knownDir) -> Bool in
+            dir.path.range(of: knownDir.name) != nil
+        }) else { return }
+        if fileManager.fileExists(atPath: dir.path) {
+            try fileManager.removeItem(at: dir)
+        }
+        try fileManager.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
     }
 
-    func generate(sourceFile: URL, targetDir: URL) throws {
-        let (fileName, _) = getFileName(from: sourceFile)
-        let targetFile = targetDir.appendingPathComponent(fileName)
-        var content = try String(contentsOf: sourceFile, encoding: .utf8)
-        content = sourceFileTopComment + content
-        try content.write(to: targetFile, atomically: true, encoding: .utf8)
-    }
-
-    func generateCommonTemplates(installDir: URL, generateOnlySourceFile: Bool) throws {
-        try fileManager.createDirectory(at: installDir, withIntermediateDirectories: true, attributes: nil)
-        try commonTemplatesDirNames.forEach { (templateDirName) in
-            let templateSourceDir = Self.sourceDir.appendingPathComponent(templateDirName)
-            var templateTargetDir = installDir
-
-            if !generateOnlySourceFile {
-                templateTargetDir.appendPathComponent(templateDirName)
-
-                if fileManager.fileExists(atPath: templateTargetDir.absoluteString) {
-                    try fileManager.removeItem(at: templateTargetDir)
+    func generateSourceFiles(sourceDir: URL, targetDir: URL) throws {
+        try fileManager.createDirectory(at: targetDir, withIntermediateDirectories: true, attributes: nil)
+        if let files = try? fileManager.contentsOfDirectory(atPath: sourceDir.path) {
+            let swiftFiles = files.filter { $0.hasSuffix(".swift") }
+            try swiftFiles.forEach { (path) in
+                let sourceFile = URL(fileURLWithPath: path, relativeTo: sourceDir)
+                let fileName = sourceFile.lastPathComponent
+                var content = try String(contentsOf: sourceFile, encoding: .utf8)
+                if !content.starts(with: "//") && !content.starts(with: "#") {
+                    content = sourceFileTopComment + content
                 }
-                try fileManager.createDirectory(at: templateTargetDir, withIntermediateDirectories: true, attributes: nil)
-                try fileManager.copyItem(at: Self.sourceDir, to: installDir)
-            }
-
-            if let files = try? FileManager.default.contentsOfDirectory(atPath: Self.sourceDir.absoluteString) {
-                let swiftFiles = files.filter { $0.hasSuffix(".swift") }
-
-                try swiftFiles.forEach { (path) in
-                    guard let url = URL(string: path) else { return }
-                    try generate(sourceFile: url, targetDir: templateTargetDir)
-                }
+                let targetFile = targetDir.appendingPathComponent(fileName)
+                try content.write(to: targetFile, atomically: true, encoding: .utf8)
             }
         }
+    }
+
+    func copyNonSourceFiles(from sourceDir: URL, to targetDir: URL) throws {
+        if let files = try? fileManager.contentsOfDirectory(atPath: sourceDir.path) {
+            let swiftFiles = files.filter { !$0.hasSuffix(".swift") }
+            try swiftFiles.forEach { (path) in
+                let sourceFile = URL(fileURLWithPath: path, relativeTo: sourceDir)
+                let fileName = sourceFile.lastPathComponent
+                let targetFile = targetDir.appendingPathComponent(fileName)
+                try fileManager.copyItem(at: sourceFile, to: targetFile)
+            }
+        }
+    }
+
+    func generate() throws {
+        let outputDir = TemplateDir.outputDir
+        if fileManager.fileExists(atPath: outputDir.path) {
+            try fileManager.removeItem(at: outputDir)
+        }
+        try generateCommonTemplates(installDir: outputDir)
     }
 
     func install() throws {
-        if fileManager.fileExists(atPath: generatedTemplatesDir.absoluteString) {
-            try fileManager.removeItem(at: generatedTemplatesDir)
+        let outputDir = TemplateDir.outputDir
+        let installDir = TemplateDir.installDir
+        if fileManager.fileExists(atPath: installDir.path) {
+            try fileManager.removeItem(at: installDir)
+        }
+        try fileManager.copyItem(at: outputDir, to: installDir)
+    }
+
+    func generateAndInstall() throws {
+        try generate()
+        try install()
+    }
+}
+
+// MARK: - Templates -
+
+class CodeBase: Templates {
+    struct TemplateDir: TemlateDirectoryDefinition {
+        static var allCases: [Self] = commonTemplates
+        let rawValue: String
+        init(rawValue: String) { self.rawValue = rawValue }
+
+        /// Single file templates
+        ///
+        /// The top comment is added to every `.swift` source file and the templates are simply copied to the install directory.
+        static let commonTemplates: [TemplateDir] = {
+            if let files = try? fileManager.contentsOfDirectory(atPath: sourceDir.path) {
+                let swiftFiles = files.filter { $0.hasSuffix(templateDirectoryExtension) }
+                return swiftFiles.map({ (path) -> TemplateDir in
+                    let templateName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
+                    return TemplateDir(rawValue: templateName)
+                })
+            }
+            return []
+        }()
+
+        #if DEBUG
+        static let rootDir = URL(fileURLWithPath: "REPOS/CleanSwiftTemplates/",
+                                       relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+        #else
+        static let rootDir = scriptDirUrl
+        #endif
+        static var sourceDir = URL(fileURLWithPath: "CodeBase/Source/", relativeTo: rootDir)
+        static var outputDir = URL(fileURLWithPath: "CodeBase/Output/", relativeTo: rootDir)
+
+        private static let installPath = "Library/Developer/Xcode/Templates/File Templates/Code Base (kodelit)/"
+        static var installDir = URL(fileURLWithPath: installPath,
+                                    relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+    }
+
+    var sourceFileTopComment: String = "//___FILEHEADER___\n"
+}
+
+class CleanSwift: Templates {
+    public enum TemplateDir: String, TemlateDirectoryDefinition {
+        case assembler, interactor, presenter, models, router, worker, scene
+        case viewModel = "View Model"
+        case viewController = "View Controller"
+        case unitTests = "Unit Tests"
+        case cleanSwiftSupport = "Clean Swift Support File"
+
+        /// Single file templates
+        ///
+        /// The top comment is added to every `.swift` source file and the templates are simply copied to the install directory.
+        static let commonTemplates: [TemplateDir] = [.interactor, .presenter, .models, .router, .worker, .viewModel, .cleanSwiftSupport]
+        /// Components of the Scene template
+        ///
+        /// Source files combined in to the one template.
+        static let sceneTemplates: [TemplateDir] = [.interactor, .presenter, .models, .router, .worker, .viewModel, .viewController]
+
+        #if DEBUG
+        private static let rootDir = URL(fileURLWithPath: "REPOS/CleanSwiftTemplates/",
+                                       relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+        #else
+        private static let rootDir = scriptDirUrl
+        #endif
+        static var sourceDir = URL(fileURLWithPath: "CleanSwift/Source/", relativeTo: rootDir)
+        static var outputDir = URL(fileURLWithPath: "CleanSwift/Output/", relativeTo: rootDir)
+
+        private static let installPath = "Library/Developer/Xcode/Templates/File Templates/Clean Swift (kodelit)/"
+        static var installDir = URL(fileURLWithPath: installPath,
+                                    relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+
+        static var commentFile: URL {
+            sourceDir
+                .appendingPathComponent("SOURCE_FILE_TOP_COMMENT")
+                .appendingPathExtension("swift")
+        }
+
+        var name: String { rawValue.capitalized + ".xctemplate" }
+        var sourceDir: URL { Self.sourceDir.appendingPathComponent(name) }
+    }
+
+    enum ViewControllerBaseClass: String, CaseIterable {
+        case viewController = "UIViewController"
+        case tableViewController = "UITableViewController"
+        case collectionViewController = "UICollectionViewController"
+
+        var name: String { rawValue }
+    }
+
+    enum LogicTypeChoice: String, CaseIterable {
+        case viewModel = "ViewModel"
+        case presenterInteractor = "Presenter-Interactor"
+    }
+
+    enum Checkboxes: String, CaseIterable {
+        case withWorker = "Worker"
+    }
+
+    var sourceFileTopComment: String = (try? String(contentsOf: TemplateDir.commentFile, encoding: .utf8)) ?? "//___FILEHEADER___\n"
+
+    private func generateViewControllerTemplate(installDir: URL) throws {
+        let dir = TemplateDir.viewController
+        let templateSourceDir = dir.sourceDir
+        let templateTargetDir = installDir.appendingPathComponent(dir.name)
+        try resetTemplateDirectory(templateTargetDir)
+        try copyNonSourceFiles(from: templateSourceDir, to: templateTargetDir)
+
+        /// Generate for all cases because copied sources of swift files have no top comment
+        try ViewControllerBaseClass.allCases.forEach({ (baseClass) in
+            try LogicTypeChoice.allCases.forEach({ (logicType) in
+                let sourceDir = templateSourceDir.appendingPathComponent("\(ViewControllerBaseClass.viewController.rawValue)\(logicType.rawValue)")
+                let targetDir = templateTargetDir.appendingPathComponent("\(baseClass.rawValue)\(logicType.rawValue)")
+                try generateSourceFiles(sourceDir: sourceDir, targetDir: targetDir)
+            })
+        })
+    }
+
+    private func generateSceneTemplate(installDir: URL) throws {
+        var templateSourceDir = TemplateDir.scene.sourceDir
+        let templateTargetDir = installDir.appendingPathComponent(TemplateDir.scene.name)
+        try resetTemplateDirectory(templateTargetDir)
+        try copyNonSourceFiles(from: templateSourceDir, to: templateTargetDir)
+
+        try TemplateDir.sceneTemplates.forEach { (dir) in
+            templateSourceDir = dir.sourceDir
+
+            try ViewControllerBaseClass.allCases.forEach({ (baseClass) in
+                try LogicTypeChoice.allCases.forEach({ (logicType) in
+                    try Checkboxes.allCases.forEach({ (checkbox) in
+                        // For each checkbox option
+                        try ["", checkbox.rawValue].forEach { (suffix) in
+                            var sourceDir = templateSourceDir
+                            switch dir {
+                            case .worker:
+                                guard suffix == Checkboxes.withWorker.rawValue else { return }
+                            case .viewModel:
+                                guard logicType == .viewModel else { return }
+                            case .presenter, .interactor:
+                                guard logicType == .presenterInteractor else { return }
+                            case .viewController:
+                                sourceDir = templateSourceDir.appendingPathComponent("\(ViewControllerBaseClass.viewController.rawValue)\(logicType.rawValue)")
+                            case .models, .router:
+                                sourceDir = templateSourceDir.appendingPathComponent(logicType.rawValue)
+                            case .scene, .assembler, .cleanSwiftSupport, .unitTests:
+                                // Ignoring them explicitly (one by one) will make the compiler to alarm the developer that every newly added template has to be supported here.
+                                break
+                            }
+                            let targetDir = templateTargetDir.appendingPathComponent("\(baseClass.rawValue)\(logicType.rawValue)\(suffix)")
+                            try generateSourceFiles(sourceDir: sourceDir, targetDir: targetDir)
+                        }
+                    })
+                })
+            })
         }
     }
 
+    func generate() throws {
+        let outputDir = TemplateDir.outputDir
+        if fileManager.fileExists(atPath: outputDir.path) {
+            try fileManager.removeItem(at: outputDir)
+        }
+        try generateViewControllerTemplate(installDir: outputDir)
+        try generateCommonTemplates(installDir: outputDir)
+        try generateSceneTemplate(installDir: outputDir)
+    }
 }
+
+// MARK: - Repo -
 
 struct GitRepo {
     static let repo = "https://github.com/kodelit/XcodeTemplates.git"
@@ -169,7 +348,7 @@ struct GitRepo {
         var result: (output: String?, exitCode: Int32)
         result = call(command:command)
         guard result.exitCode == 0 else { exitWithError(result.output, code: result.exitCode) }
-        print(result.output ?? "")
+        printOutput(result.output ?? "")
     }
 
     static func update() throws {
@@ -324,24 +503,6 @@ extension TemplateInfo {
     }
 }
 
-
-// MARK: - MAIN -
-
-try GitRepo.update()
-
-let templateInfo = scriptDirUrl
-    .appendingPathComponent("repo")
-    .appendingPathComponent("CleanSwift/Source")
-    .appendingPathComponent("Scene.xctemplate")
-    .appendingPathComponent("TemplateInfo.plist")
-let data = try Data(contentsOf: templateInfo)
-
-let info = try TemplateInfo.plistDecoder.decode(TemplateInfo.self, from: data)
-//try generateCommonTemplates(installDir: generatedTemplatesDir, generateOnlySourceFile: false)
-print(info)
-
-// MARK: - END of MAIN -
-
 // https://stackoverflow.com/questions/48333607/how-to-launch-an-external-process
 // https://bash.0x1fff.com/na_poczatek/index.html
 // How to include .swift file from other .swift file in an immediate mode?:
@@ -376,17 +537,22 @@ let standardInput = FileHandle.standardInput
 let standardOutput = FileHandle.standardOutput
 //let standardError = FileHandle.standardError
 
-func exitWithError(_ message: String?, code: Int32 = 1) -> Never {
-    if let message = message, let output = message.data(using: .utf8) {
+func printOutput(_ output: String) {
+    if let output = "\(output)\n".data(using: .utf8) {
+        print(output)
         standardOutput.write(output)
+    }
+}
+
+func exitWithError(_ output: String?, code: Int32 = 1) -> Never {
+    if let message = output {
+        printOutput(message)
     }
     exit(code)
 }
 
 func exitSuccessfully(_ output: String) -> Never {
-    if let output = output.data(using: .utf8) {
-        standardOutput.write(output)
-    }
+    printOutput(output)
     exit(0)
 }
 
@@ -424,19 +590,26 @@ private func startProcess(launchPath: String, arguments: [String]) -> (output: S
 
     do {
         try task.run()
+        var output: String?
+        if #available(OSX 10.15.4, *) {
+            if let data = try pipe.fileHandleForReading.readToEnd() {
+                output = String(data: data, encoding: .utf8)
+            }
+        } else {
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            output = String(data: data, encoding: .utf8)
+        }
+        task.waitUntilExit()
+
+        let exitCode = task.terminationStatus
+        output = output?.components(separatedBy: "\n").map({ "\t\($0)" }).joined(separator: "\n")
+        printOutput(" Output:\n \(output ?? "")\n exit code: \(exitCode)")
+        return (output, exitCode)
     } catch {
         // handle errors
-        print("Error: \(error.localizedDescription)")
+        printOutput("Error: \(error.localizedDescription)")
         return (nil, 1)
     }
-
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)
-    task.waitUntilExit()
-    
-    let exitCode = task.terminationStatus
-    print("Output:\n", output ?? "", "exit code:", exitCode)
-    return (output, exitCode)
 }
 
 private func commandComponents(command: String) -> (path: String, args: [String])? {
@@ -466,9 +639,9 @@ func call(_ shell: Shell = Shell.default, arguments: [String]) -> (output: Strin
     let shellArgs = shell.args + ["-c", "which \(command)"]
     let (optionalOutput, exitCode) = startProcess(launchPath: shell.path, arguments: shellArgs)
     guard exitCode == 0, let output = optionalOutput else { return (nil, exitCode) }
-    
+
     let commandPath = output.trimmingCharacters(in: .whitespacesAndNewlines)
-    print("Command: \(commandPath), arguments: \(arguments.joined(separator: ", "))")
+    printOutput("Command: \(commandPath), arguments: \(arguments.joined(separator: ", "))")
     return startProcess(launchPath: commandPath, arguments: arguments)
 }
 
@@ -487,3 +660,26 @@ func call(_ shell: Shell = Shell.default, command: String) -> (output: String?, 
     return call(shell, arguments: command.components(separatedBy: " "))
 }
 
+// MARK: - MAIN -
+
+//try GitRepo.update()
+//
+//let templateInfo = scriptDirUrl
+//    .appendingPathComponent("repo")
+//    .appendingPathComponent("CleanSwift/Source")
+//    .appendingPathComponent("Scene.xctemplate")
+//    .appendingPathComponent("TemplateInfo.plist")
+//let data = try Data(contentsOf: templateInfo)
+//
+//let info = try TemplateInfo.plistDecoder.decode(TemplateInfo.self, from: data)
+//try generateCommonTemplates(installDir: generatedTemplatesDir, generateOnlySourceFile: false)
+//printOutput(info)
+
+printOutput("=== Begining: \(scriptPath)")
+
+let cleanSwiftTemplates = CleanSwift()
+try cleanSwiftTemplates.generateAndInstall()
+let codeBaseTemplates = CodeBase()
+try codeBaseTemplates.generateAndInstall()
+
+printOutput("=== End: \(scriptPath)")

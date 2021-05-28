@@ -21,11 +21,13 @@ public protocol ___VARIABLE_moduleName___ModuleAccessController {
 
 // MARK: - Module Interface Implementation (Default Module Access Controller)
 
+protocol ___VARIABLE_moduleName___ModuleDelegate: ___VARIABLE_rootSceneName___SceneDelegate {}
+
 /// Default implementation of the module controller.
 internal class ___VARIABLE_moduleName___Controller {
     static let sharedSceneDelegate: ___VARIABLE_moduleName___SceneDelegate = ___VARIABLE_moduleName___Controller()
 
-    private let service: ___VARIABLE_moduleName___Service
+    private let service: ___VARIABLE_moduleName___ModuleBusinessLogic
     weak var moduleDelegate: ___VARIABLE_moduleName___ModuleDelegate?
 
     convenience init() {
@@ -39,6 +41,7 @@ internal class ___VARIABLE_moduleName___Controller {
             fatalError("[___VARIABLE_moduleName___DefaultController] Module not configured.")
         }
         self.service = service
+        self.moduleRouter = rootSceneRouter
         self.moduleDelegate = ___VARIABLE_moduleName___Module.delegate
     }
 
@@ -49,4 +52,30 @@ internal class ___VARIABLE_moduleName___Controller {
 }
 
 extension ___VARIABLE_moduleName___Controller: ___VARIABLE_moduleName___ModuleAccessController {
+}
+
+extension ___VARIABLE_moduleName___Controller: ___VARIABLE_moduleName___SceneDelegate {
+    func handle(_ request: ___VARIABLE_rootSceneName___Scene.Request.Data) {
+        let data = self.service.getData()
+        request.reload(data, !request.shouldRequestRemoteData)
+
+        if request.shouldRequestRemoteData {
+            guard let dataSource = self.moduleDelegate else {
+                request.canceled?()
+                return
+            }
+            request.setLoadingIndicator?(true)
+
+            typealias DataRequest = ___VARIABLE_moduleName___Module.Request.Data
+            let dataRequest = DataRequest() { [weak self] data in
+                self?.update(with: data)
+                request.reload(data, true)
+                request.setLoadingIndicator?(false)
+            } failure: {
+                request.canceled?()
+                request.setLoadingIndicator?(false)
+            }
+            dataSource.handle(dataRequest)
+        }
+    }
 }

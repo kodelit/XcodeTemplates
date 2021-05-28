@@ -1,20 +1,7 @@
 import UIKit
 
 enum ___VARIABLE_sceneName___Scene {
-    // MARK: - Request (Interactor/ViewModel -> Module/Outside)
-
-    /// External request for the module/outside the scene.
-    enum Request {
-        struct Data {
-            // Some params here
-            // ...
-
-            let success: () -> Void
-            let failure: () -> Void?
-        }
-    }
-
-    // MARK: - Routing (Interactor/ViewModel -> Router)
+    // MARK: - Routing (Interactor -> Router)
 
     //enum ExitReason {
     //    case none
@@ -34,10 +21,14 @@ enum ___VARIABLE_sceneName___Scene {
         //case exit(result: ExitResult = .none)
     }
 
-    // MARK: - View Model (Presenter/ViewModel -> UI)
+    // MARK: - View Model (Presenter -> UI)
 
     /// Model to display
     struct InitialSetup {
+        var screenTitle: String?
+    }
+
+    enum ViewModel {
     }
 
     /// Update of the part of the UI
@@ -52,7 +43,7 @@ enum ___VARIABLE_sceneName___Scene {
         //}
     }
 
-    // MARK: - Request (UI -> Interactor/ViewModel)
+    // MARK: - Request (UI -> Interactor)
 
     /// UI Lifecycle event forwarding
     enum LifecycleEvent {
@@ -63,7 +54,7 @@ enum ___VARIABLE_sceneName___Scene {
     ///
     /// - note: Provides cases for simple requests but also is a namespace for data structures of more complex requests.
     enum UserAction {
-        case backButton
+        case backButton, refresh
         //case didSelectRow(at: IndexPath)
     }
 
@@ -88,4 +79,21 @@ enum ___VARIABLE_sceneName___Scene {
         case initialSetup
         //case deselectRow(at: IndexPath)
     }
+}
+
+// MARK: - ___VARIABLE_sceneName___ table view model
+
+extension ___VARIABLE_sceneName___Scene.ViewModel {
+    //struct Table: SimpleTableViewModel {
+    //    struct Row {
+    //        let id: String
+    //        let title: String
+    //        let detail: String
+    //    }
+    //
+    //    struct Section {}
+    //
+    //    private(set) var sections: [Section]
+    //    private(set) var rows: [[Row]]
+    //}
 }

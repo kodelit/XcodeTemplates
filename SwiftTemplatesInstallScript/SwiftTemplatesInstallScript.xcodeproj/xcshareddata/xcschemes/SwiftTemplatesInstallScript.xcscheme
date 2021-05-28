@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1220"
+   LastUpgradeVersion = "1240"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1AFF0CF25718D1400121578"
+               BlueprintIdentifier = "5923131826612FFF0055BBB0"
                BuildableName = "SwiftTemplatesInstallScript"
                BlueprintName = "SwiftTemplatesInstallScript"
                ReferencedContainer = "container:SwiftTemplatesInstallScript.xcodeproj">
@@ -44,22 +44,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A1AFF0CF25718D1400121578"
+            BlueprintIdentifier = "5923131826612FFF0055BBB0"
             BuildableName = "SwiftTemplatesInstallScript"
             BlueprintName = "SwiftTemplatesInstallScript"
             ReferencedContainer = "container:SwiftTemplatesInstallScript.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "$(ROOTSRC)"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--develop"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A1AFF0CF25718D1400121578"
+            BlueprintIdentifier = "5923131826612FFF0055BBB0"
             BuildableName = "SwiftTemplatesInstallScript"
             BlueprintName = "SwiftTemplatesInstallScript"
             ReferencedContainer = "container:SwiftTemplatesInstallScript.xcodeproj">

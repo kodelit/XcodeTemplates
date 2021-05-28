@@ -14,10 +14,6 @@ protocol ___VARIABLE_sceneName___SceneRouting: class {
     func route(to destination: ___VARIABLE_sceneName___Scene.Destination)
 }
 
-protocol ___VARIABLE_sceneName___SceneDelegate: class {
-    func handle(_ request: ___VARIABLE_sceneName___Scene.Request.Data)
-}
-
 class ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneDataStoring {
     weak var router: ___VARIABLE_sceneName___SceneRouting?
     /// UIViewController or UIView  implementing the Display Logic protocol
@@ -25,11 +21,45 @@ class ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneDataS
 
     // MARK: - Dependencies (services, managers, helpers, formatters, workers, etc.)
 
-    weak var delegate: ___VARIABLE_sceneName___SceneDelegate?
+    // ...
 
     // MARK: - Data Storing
 
-    //var name: String = ""
+    var screenTitle: String?
+    /// Indicates that the data should be reloaded from the local storage
+    var isReloadRequired: Bool = false
+    /// Indicates that the data should be updated from the remote storage
+    var isUpdateRequired: Bool = false
+
+    // MARK: - Lifecycle
+
+    typealias SceneData = <#Data#>
+    private var data: SceneData?
+
+    private func viewDidLoad() {
+        //guard let view = view else {
+        //    assertionFailure("[___VARIABLE_sceneName___SceneViewModel] View not set.")
+        //    return
+        //}
+        guard let view = view.assertExistence(propertyName: "view") else { return }
+        let initialSetup = ___VARIABLE_sceneName___Scene.InitialSetup(screenTitle: screenTitle)
+        view.display(initialSetup)
+        refresh(fromRemoteStorage: true)
+    }
+
+    private func viewWillAppear() {
+        if isReloadRequired || isUpdateRequired {
+            refresh(fromRemoteStorage: isUpdateRequired)
+        }
+    }
+
+    private func refresh(fromRemoteStorage: Bool) {
+
+    }
+
+    private func didReceiveData(_ data: SceneData) {
+        // display data
+    }
 }
 
 // MARK: - Business Logic
@@ -37,15 +67,14 @@ class ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneDataS
 extension ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneBusinessLogic {
     func handle(event: ___VARIABLE_sceneName___Scene.LifecycleEvent) {
         switch event {
-        case .viewDidLoad:
-            let initialSetup = ___VARIABLE_sceneName___Scene.InitialSetup()
-            view?.display(initialSetup)
-        default: break
+        case .viewDidLoad: viewDidLoad()
+        case .viewWillAppear: viewWillAppear()
         }
     }
 
     func handle(action: ___VARIABLE_sceneName___Scene.UserAction) {
         switch action {
+        case .refresh: refresh(fromRemoteStorage: true)
         case .backButton: router?.route(to: .exit)
         }
     }

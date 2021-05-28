@@ -21,9 +21,11 @@ extension ___VARIABLE_moduleName___Module {
     ///
     /// - note: Provides cases for simple requests but also is a namespace for data structures of more complex requests.
     public enum Request {
-        public struct ___VARIABLE_moduleName___Data {
+        public struct Data {
+            public typealias RequestedData = <#DataType#>
+
             //public let id: String
-            public let success: () -> Void
+            public let success: (RequestedData) -> Void
             public let failure: (() -> Void)?
         }
     }
@@ -32,6 +34,6 @@ extension ___VARIABLE_moduleName___Module {
     ///
     /// - note: Provides cases for simple notifications but also is a namespace for data structures of more complex notifications.
     public enum Notification {
-        case reload(with id: String)
+        case reload
     }
 }

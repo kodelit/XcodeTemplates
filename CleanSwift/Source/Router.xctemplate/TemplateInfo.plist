@@ -56,13 +56,32 @@
 			<key>Type</key>
 			<string>static</string>
 		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>logicTypeChoice</string>
+			<key>Required</key>
+			<true/>
+			<key>Name</key>
+			<string>Presentation and Business logic:</string>
+			<key>Description</key>
+			<string>Layers of the logic. Combined - one view model file for both layers, Separated: presenter (presentation layer), interactor (buisiness logic)</string>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Default</key>
+			<string>ViewModel</string>
+			<key>Values</key>
+			<array>
+				<string>ViewModel</string>
+				<string>Presenter-Interactor</string>
+			</array>
+		</dict>
 	</array>
 	<key>Platforms</key>
 	<array>
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>6</string>
+	<string>3</string>
 	<key>Summary</key>
 	<string>This generates a new router using Uncle Bob&apos;s clean architecture. You navigate to other scenes by presenting and dismissing other view controllers here.</string>
 </dict>

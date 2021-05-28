@@ -19,12 +19,6 @@ class ___VARIABLE_sceneName___SceneAssembler: ___VARIABLE_sceneName___SceneAssem
         presenter.router = router // weak
         viewController.interactor = interactor // strong
         router.dataStore = interactor // strong
-        // or
-        //let viewModel = ___VARIABLE_sceneName___SceneViewModel()
-        //viewModel.view = viewController // weak
-        //viewController.viewModel = viewModel // strong
-        //viewModel.router = router // weak
-        //router.dataStore = viewModel // strong
 
         // Dependencies
         //let worker = ___VARIABLE_sceneName___SceneWorker()
