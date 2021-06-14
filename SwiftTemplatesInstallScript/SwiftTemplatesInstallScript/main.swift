@@ -232,7 +232,7 @@ class CleanSwift: Templates {
         /// Single file templates
         ///
         /// The top comment is added to every `.swift` source file and the templates are simply copied to the install directory.
-        static let commonTemplates: [TemplateDir] = [.interactor, .presenter, .models, .router, .worker, .viewModel, .cleanSwiftSupport]
+        static let commonTemplates: [TemplateDir] = [.assembler, .interactor, .presenter, .models, .router, .worker, .viewModel, .cleanSwiftSupport]
         /// Components of the Scene template
         ///
         /// Source files combined in to the one template.

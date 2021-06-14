@@ -10,6 +10,7 @@
 	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
 	<key>Platforms</key>
 	<array>
+		<string>com.apple.platform.macosx</string>
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>

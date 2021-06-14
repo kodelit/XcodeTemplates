@@ -30,34 +30,44 @@ let fileManager = FileManager.default
 
 // MARK: - Arguments parsing
 
+enum Environment {
+    private static let dictionary: [String : String] = ProcessInfo.processInfo.environment
+}
+
 enum Arguments {
-    static let arguments = CommandLine.arguments
+    static let arguments: [String] = CommandLine.arguments
+
+    /// - parameter argument: An option after which should be provided some custom value, eg. some path to the resource
+    /// - returns: The value after the given `argument` if the next value is not a known option.
+    static func value(for argument: Option) -> String? {
+        if let long = argument.key,
+           let index = Self.arguments.firstIndex(of: long),
+           arguments.count > index + 1 {
+            let nextArg = arguments[index + 1]
+            // if the `nextArg` is not a known Option it has to be the value for the given `argument`
+            if Option(rawValue: nextArg) == nil {
+                return nextArg
+            }
+        }
+        return nil
+    }
 
     static func contains(_ argument: Option) -> Bool {
-        guard let long = argument.long, let short = argument.short else { return false }
-        return Self.arguments.contains(long) || Self.arguments.contains(short)
+        if let long = argument.key, Self.arguments.contains(long) {
+            return true
+        }
+        return false
     }
 }
 
 enum Option: String, ExpressibleByStringLiteral {
     case help
     case develop
+    case projectDir
     case unknown
 
-    private enum ShortKey: String, CaseIterable {
-        case develop = "d"
-    }
-
-    var long: String? {
+    var key: String? {
         self == .unknown ? nil : "--\(rawValue)"
-    }
-
-    var short: String? {
-        guard self != .unknown else { return nil }
-        if let shortKey = ShortKey(rawValue: self.rawValue) {
-            return "-\(shortKey.rawValue)"
-        }
-        return "-\(rawValue.first!)"
     }
 
     public init(stringLiteral value: String) {
@@ -67,6 +77,14 @@ enum Option: String, ExpressibleByStringLiteral {
 }
 
 let isRequestingHelp = Arguments.contains(.help)
+let projectDir = Arguments.value(for: .projectDir)
+
+#if DEBUG
+assert(projectDir != nil, "Missing debug argument --projectDir")
+let rootDir = URL(fileURLWithPath: "\(projectDir ?? "")/../", relativeTo: URL(fileURLWithPath: NSOpenStepRootDirectory()))
+#else
+let rootDir = scriptDirUrl
+#endif
 
 // MARK: - Models
 
@@ -192,12 +210,6 @@ class CodeBase: Templates {
             return []
         }()
 
-        #if DEBUG
-        static let rootDir = URL(fileURLWithPath: "REPOS/CleanSwiftTemplates/",
-                                       relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
-        #else
-        static let rootDir = scriptDirUrl
-        #endif
         static var sourceDir = URL(fileURLWithPath: "CodeBase/Source/", relativeTo: rootDir)
         static var outputDir = URL(fileURLWithPath: "CodeBase/Output/", relativeTo: rootDir)
 
@@ -220,18 +232,12 @@ class CleanSwift: Templates {
         /// Single file templates
         ///
         /// The top comment is added to every `.swift` source file and the templates are simply copied to the install directory.
-        static let commonTemplates: [TemplateDir] = [.interactor, .presenter, .models, .router, .worker, .viewModel, .cleanSwiftSupport]
+        static let commonTemplates: [TemplateDir] = [.assembler, .interactor, .presenter, .models, .router, .worker, .viewModel, .cleanSwiftSupport]
         /// Components of the Scene template
         ///
         /// Source files combined in to the one template.
         static let sceneTemplates: [TemplateDir] = [.interactor, .presenter, .models, .router, .worker, .viewModel, .viewController]
 
-        #if DEBUG
-        private static let rootDir = URL(fileURLWithPath: "REPOS/CleanSwiftTemplates/",
-                                       relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
-        #else
-        private static let rootDir = scriptDirUrl
-        #endif
         static var sourceDir = URL(fileURLWithPath: "CleanSwift/Source/", relativeTo: rootDir)
         static var outputDir = URL(fileURLWithPath: "CleanSwift/Output/", relativeTo: rootDir)
 

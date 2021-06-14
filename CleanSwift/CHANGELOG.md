@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file
 
+## 4.0.1 - kodelit fork started
+- Install script in swift
+- support of two levels of complexity:
+
+    - presenter and interactor (separate presentation and businness logic)
+    - ViewModel as presenter and interactor combined together
+    
+
 ## 4.0.0 - kodelit fork started
 - Indentation style changed from Allman to more swift like style (someting like [1TBS](https://en.wikipedia.org/wiki/Indentation_style#Variant:_1TBS_(OTBS)));
-- Assembler type added to move module composing outside the ViewController and handle dependency injection;
+- Assembler protocol added to move module composing outside the ViewController and handle dependency injection;
 - Support for Xcode Preview, a new functionality introduced with SwiftUI to preview ViewController layout;
 - Added new models categories;
 - Some naming changes;
