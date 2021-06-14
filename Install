@@ -675,11 +675,11 @@ func call(_ shell: Shell = Shell.default, command: String) -> (output: String?, 
 //try generateCommonTemplates(installDir: generatedTemplatesDir, generateOnlySourceFile: false)
 //printOutput(info)
 
-printOutput("=== Begining: \(scriptPath)")
+//printOutput("=== Begining: \(scriptPath)")
 
 let cleanSwiftTemplates = CleanSwift()
 try cleanSwiftTemplates.generateAndInstall()
 let codeBaseTemplates = CodeBase()
 try codeBaseTemplates.generateAndInstall()
 
-printOutput("=== End: \(scriptPath)")
+//printOutput("=== End: \(scriptPath)")

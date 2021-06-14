@@ -9,12 +9,33 @@ let scriptDirUrl = URL(fileURLWithPath: scriptPath).deletingLastPathComponent()
 
 // MARK: - Arguments parsing
 
+enum Environment {
+    private static let dictionary: [String : String] = ProcessInfo.processInfo.environment
+}
+
 enum Arguments {
-    static let arguments = CommandLine.arguments
+    static let arguments: [String] = CommandLine.arguments
+
+    /// - parameter argument: An option after which should be provided some custom value, eg. some path to the resource
+    /// - returns: The value after the given `argument` if the next value is not a known option.
+    static func value(for argument: Option) -> String? {
+        if let long = argument.key,
+           let index = Self.arguments.firstIndex(of: long),
+           arguments.count > index + 1 {
+            let nextArg = arguments[index + 1]
+            // if the `nextArg` is not a known Option it has to be the value for the given `argument`
+            if Option(rawValue: nextArg) == nil {
+                return nextArg
+            }
+        }
+        return nil
+    }
 
     static func contains(_ argument: Option) -> Bool {
-        guard let long = argument.long, let short = argument.short else { return false }
-        return Self.arguments.contains(long) || Self.arguments.contains(short)
+        if let long = argument.key, Self.arguments.contains(long) {
+            return true
+        }
+        return false
     }
 }
 
@@ -23,20 +44,8 @@ enum Option: String, ExpressibleByStringLiteral {
     case develop
     case unknown
 
-    private enum ShortKey: String, CaseIterable {
-        case develop = "d"
-    }
-
-    var long: String? {
+    var key: String? {
         self == .unknown ? nil : "--\(rawValue)"
-    }
-
-    var short: String? {
-        guard self != .unknown else { return nil }
-        if let shortKey = ShortKey(rawValue: self.rawValue) {
-            return "-\(shortKey.rawValue)"
-        }
-        return "-\(rawValue.first!)"
     }
 
     public init(stringLiteral value: String) {

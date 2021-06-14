@@ -54,7 +54,7 @@ class ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_viewControllerSub
     /// Resposible for post init configuration of the controller, before view is loaded.
     func setup() {
         // default assembler, is required if the controller is created by the storyboard
-        //assembler = ___VARIABLE_sceneName___SceneRouter()
+        assembler = ___VARIABLE_sceneName___SceneRouter()
     }
 
     // MARK: Routing
