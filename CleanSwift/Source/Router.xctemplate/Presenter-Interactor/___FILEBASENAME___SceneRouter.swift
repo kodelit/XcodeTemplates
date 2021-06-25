@@ -18,6 +18,8 @@ class ___VARIABLE_productName___SceneRouter: NSObject {
         //}
         // or
         let viewController = ___VARIABLE_productName___SceneViewController(nibName: nil, bundle: nil)
+
+        // Assembling
         viewController.assembler = self
         viewController.assembleIfNeeded()
         return viewController

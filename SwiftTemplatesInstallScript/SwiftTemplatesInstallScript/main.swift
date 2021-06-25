@@ -138,16 +138,15 @@ extension Templates where TemplateDir.RawValue == String {
 
     func generateSourceFiles(sourceDir: URL, targetDir: URL) throws {
         try fileManager.createDirectory(at: targetDir, withIntermediateDirectories: true, attributes: nil)
-        if let files = try? fileManager.contentsOfDirectory(atPath: sourceDir.path) {
+        if let files = try? fileManager.subpathsOfDirectory(atPath: sourceDir.path) {
             let swiftFiles = files.filter { $0.hasSuffix(".swift") }
             try swiftFiles.forEach { (path) in
                 let sourceFile = URL(fileURLWithPath: path, relativeTo: sourceDir)
-                let fileName = sourceFile.lastPathComponent
                 var content = try String(contentsOf: sourceFile, encoding: .utf8)
                 if !content.starts(with: "//") && !content.starts(with: "#") {
                     content = sourceFileTopComment + content
                 }
-                let targetFile = targetDir.appendingPathComponent(fileName)
+                let targetFile = targetDir.appendingPathComponent(path)
                 try content.write(to: targetFile, atomically: true, encoding: .utf8)
             }
         }
