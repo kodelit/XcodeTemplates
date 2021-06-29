@@ -9,6 +9,9 @@
       assignedFileDataType = "public.swift-source">
    </FileRef>
    <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
       location = "group:CleanSwift">
    </FileRef>
    <FileRef
