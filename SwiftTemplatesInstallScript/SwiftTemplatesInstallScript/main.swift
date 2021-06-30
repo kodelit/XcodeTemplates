@@ -1,7 +1,7 @@
 #!/usr/bin/swift
 // This code is distributed under the terms and conditions of the MIT License:
 
-// Copyright © 2020 kodelit.
+// Copyright © 2020-2021 kodelit.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -175,6 +175,8 @@ extension Templates where TemplateDir.RawValue == String {
     func install() throws {
         let outputDir = TemplateDir.outputDir
         let installDir = TemplateDir.installDir
+        // create intermediate directories if does not exists
+        try fileManager.createDirectory(at: installDir, withIntermediateDirectories: true, attributes: nil)
         if fileManager.fileExists(atPath: installDir.path) {
             try fileManager.removeItem(at: installDir)
         }

@@ -9,7 +9,8 @@ TODO:
 - CocoaPods temlate:
 	- [ ] write documentation
 	- [x] write `install` script
-- [x] One script for all templates (?)
+- [x] One `install` script for all templates (?)
+    - [ ] automatic downloading the templates from the repo if source is not present
 
 ## Clean Swift Template
 
