@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DefaultCompletionName</key>
+	<string>Some</string>
+	<key>Description</key>
+	<string>This generates a new root class and interface of the module.</string>
+	<key>Kind</key>
+	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Default</key>
+			<string>Some</string>
+			<key>Description</key>
+			<string>The name of the module to create</string>
+			<key>Identifier</key>
+			<string>moduleName</string>
+			<key>Name</key>
+			<string>New module Name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___</string>
+			<key>Identifier</key>
+			<string>sceneName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___Module</string>
+			<key>Description</key>
+			<string>The module name</string>
+			<key>Identifier</key>
+			<string>moduleFileName</string>
+			<key>Name</key>
+			<string>Module Name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___ModuleAccessController</string>
+			<key>Description</key>
+			<string>Module access controller protocol</string>
+			<key>Identifier</key>
+			<string>accessControllerFileName</string>
+			<key>Name</key>
+			<string>Access controler file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___ModuleBusinessLogic</string>
+			<key>Description</key>
+			<string>Module business logic protocol</string>
+			<key>Identifier</key>
+			<string>businessLogicFileName</string>
+			<key>Name</key>
+			<string>Business logic file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___ModuleRouting</string>
+			<key>Description</key>
+			<string>Module routing protocol</string>
+			<key>Identifier</key>
+			<string>routingFileName</string>
+			<key>Name</key>
+			<string>Business logic file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___Models</string>
+			<key>Description</key>
+			<string>The models file name</string>
+			<key>Identifier</key>
+			<string>modelsFileName</string>
+			<key>Name</key>
+			<string>Models file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+	</array>
+	<key>Platforms</key>
+	<array>
+		<string>com.apple.platform.iphoneos</string>
+	</array>
+	<key>SortOrder</key>
+	<string>2</string>
+	<key>Summary</key>
+	<string>This generates a new root class and interface of the module.</string>
+</dict>
+</plist>

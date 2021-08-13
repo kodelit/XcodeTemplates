@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DefaultCompletionName</key>
-	<string>MyScene</string>
+	<string>Some</string>
 	<key>Description</key>
 	<string>This generates a new Assembler. Your scene (module) assembling logic goes here. This is where dependencies are loaded.</string>
 	<key>Kind</key>
@@ -12,7 +12,7 @@
 	<array>
 		<dict>
 			<key>Default</key>
-			<string>MyScene</string>
+			<string>Some</string>
 			<key>Description</key>
 			<string>The name of the scene to create</string>
 			<key>Identifier</key>
@@ -48,13 +48,32 @@
 			<key>Type</key>
 			<string>static</string>
 		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>logicTypeChoice</string>
+			<key>Required</key>
+			<true/>
+			<key>Name</key>
+			<string>Presentation and Business logic:</string>
+			<key>Description</key>
+			<string>Layers of the logic. Combined - one view model file for both layers, Separated: presenter (presentation layer), interactor (buisiness logic)</string>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Default</key>
+			<string>ViewModel</string>
+			<key>Values</key>
+			<array>
+				<string>ViewModel</string>
+				<string>Presenter-Interactor</string>
+			</array>
+		</dict>
 	</array>
 	<key>Platforms</key>
 	<array>
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>3</string>
+	<string>20</string>
 	<key>Summary</key>
 	<string>This generates a new Assembler. Your scene (module) assembling logic goes here. This is where dependencies are loaded.</string>
 </dict>
