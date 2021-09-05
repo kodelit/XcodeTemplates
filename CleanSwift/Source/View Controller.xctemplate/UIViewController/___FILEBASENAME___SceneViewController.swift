@@ -100,7 +100,7 @@ extension ___VARIABLE_sceneName___SceneViewController {
         //view.addSubview(button)
         //self.button = button
 
-        setupLayout()
+        setupSubviews()
     }
 
     /// Performs initial setup of the loaded subviews.
