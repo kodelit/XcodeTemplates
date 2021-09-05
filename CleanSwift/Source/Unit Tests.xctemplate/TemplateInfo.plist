@@ -96,7 +96,7 @@
 		<string>com.apple.platform.iphoneos</string>
 	</array>
 	<key>SortOrder</key>
-	<string>7</string>
+	<string>22</string>
 	<key>Summary</key>
 	<string>This generates unit tests for your scene using Uncle Bob&apos;s clean architecture.</string>
 </dict>

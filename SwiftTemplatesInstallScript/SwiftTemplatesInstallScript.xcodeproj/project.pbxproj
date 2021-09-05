@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1AFF0D425718D1400121578 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFF0D325718D1400121578 /* main.swift */; };
+		5923131C26612FFF0055BBB0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5923131B26612FFF0055BBB0 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A1AFF0CE25718D1400121578 /* CopyFiles */ = {
+		5923131726612FFF0055BBB0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -23,12 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A1AFF0D025718D1400121578 /* SwiftTemplatesInstallScript */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftTemplatesInstallScript; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1AFF0D325718D1400121578 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5923131926612FFF0055BBB0 /* SwiftTemplatesInstallScript */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftTemplatesInstallScript; sourceTree = BUILT_PRODUCTS_DIR; };
+		5923131B26612FFF0055BBB0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1AFF0CD25718D1400121578 /* Frameworks */ = {
+		5923131626612FFF0055BBB0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,10 +38,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5923131A26612FFF0055BBB0 /* SwiftTemplatesInstallScript */ = {
+			isa = PBXGroup;
+			children = (
+				5923131B26612FFF0055BBB0 /* main.swift */,
+			);
+			path = SwiftTemplatesInstallScript;
+			sourceTree = "<group>";
+		};
 		A1AFF0C725718D1400121578 = {
 			isa = PBXGroup;
 			children = (
-				A1AFF0D225718D1400121578 /* SwiftTemplatesInstallScript */,
+				5923131A26612FFF0055BBB0 /* SwiftTemplatesInstallScript */,
 				A1AFF0D125718D1400121578 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,29 +57,21 @@
 		A1AFF0D125718D1400121578 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1AFF0D025718D1400121578 /* SwiftTemplatesInstallScript */,
+				5923131926612FFF0055BBB0 /* SwiftTemplatesInstallScript */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A1AFF0D225718D1400121578 /* SwiftTemplatesInstallScript */ = {
-			isa = PBXGroup;
-			children = (
-				A1AFF0D325718D1400121578 /* main.swift */,
-			);
-			path = SwiftTemplatesInstallScript;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1AFF0CF25718D1400121578 /* SwiftTemplatesInstallScript */ = {
+		5923131826612FFF0055BBB0 /* SwiftTemplatesInstallScript */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1AFF0D725718D1400121578 /* Build configuration list for PBXNativeTarget "SwiftTemplatesInstallScript" */;
+			buildConfigurationList = 5923131D26612FFF0055BBB0 /* Build configuration list for PBXNativeTarget "SwiftTemplatesInstallScript" */;
 			buildPhases = (
-				A1AFF0CC25718D1400121578 /* Sources */,
-				A1AFF0CD25718D1400121578 /* Frameworks */,
-				A1AFF0CE25718D1400121578 /* CopyFiles */,
+				5923131526612FFF0055BBB0 /* Sources */,
+				5923131626612FFF0055BBB0 /* Frameworks */,
+				5923131726612FFF0055BBB0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -79,7 +79,7 @@
 			);
 			name = SwiftTemplatesInstallScript;
 			productName = SwiftTemplatesInstallScript;
-			productReference = A1AFF0D025718D1400121578 /* SwiftTemplatesInstallScript */;
+			productReference = 5923131926612FFF0055BBB0 /* SwiftTemplatesInstallScript */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -88,11 +88,11 @@
 		A1AFF0C825718D1400121578 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
-					A1AFF0CF25718D1400121578 = {
-						CreatedOnToolsVersion = 12.2;
+					5923131826612FFF0055BBB0 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -109,23 +109,51 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1AFF0CF25718D1400121578 /* SwiftTemplatesInstallScript */,
+				5923131826612FFF0055BBB0 /* SwiftTemplatesInstallScript */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1AFF0CC25718D1400121578 /* Sources */ = {
+		5923131526612FFF0055BBB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1AFF0D425718D1400121578 /* main.swift in Sources */,
+				5923131C26612FFF0055BBB0 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		5923131E26612FFF0055BBB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 82659XA3B4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.kodelit.SwiftTemplatesInstallScript;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5923131F26612FFF0055BBB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 82659XA3B4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.kodelit.SwiftTemplatesInstallScript;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		A1AFF0D525718D1400121578 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -243,47 +271,23 @@
 			};
 			name = Release;
 		};
-		A1AFF0D825718D1400121578 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82659XA3B4;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = pl.kodelit.SwiftTemplatesInstallScript;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		A1AFF0D925718D1400121578 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 82659XA3B4;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = pl.kodelit.SwiftTemplatesInstallScript;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5923131D26612FFF0055BBB0 /* Build configuration list for PBXNativeTarget "SwiftTemplatesInstallScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5923131E26612FFF0055BBB0 /* Debug */,
+				5923131F26612FFF0055BBB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1AFF0CB25718D1400121578 /* Build configuration list for PBXProject "SwiftTemplatesInstallScript" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1AFF0D525718D1400121578 /* Debug */,
 				A1AFF0D625718D1400121578 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A1AFF0D725718D1400121578 /* Build configuration list for PBXNativeTarget "SwiftTemplatesInstallScript" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1AFF0D825718D1400121578 /* Debug */,
-				A1AFF0D925718D1400121578 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

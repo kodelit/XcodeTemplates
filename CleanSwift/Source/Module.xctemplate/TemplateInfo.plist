@@ -58,13 +58,41 @@
 		</dict>
 		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_moduleName:identifier___DefaultController</string>
+			<string>___VARIABLE_moduleName:identifier___ModuleAccessController</string>
 			<key>Description</key>
-			<string>The default controller name</string>
+			<string>Module access controller protocol</string>
 			<key>Identifier</key>
-			<string>controllerFileName</string>
+			<string>accessControllerFileName</string>
 			<key>Name</key>
-			<string>Controller Name:</string>
+			<string>Access controler file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___ModuleBusinessLogic</string>
+			<key>Description</key>
+			<string>Module business logic protocol</string>
+			<key>Identifier</key>
+			<string>businessLogicFileName</string>
+			<key>Name</key>
+			<string>Business logic file name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_moduleName:identifier___ModuleRouting</string>
+			<key>Description</key>
+			<string>Module routing protocol</string>
+			<key>Identifier</key>
+			<string>routingFileName</string>
+			<key>Name</key>
+			<string>Business logic file name:</string>
 			<key>Required</key>
 			<true/>
 			<key>Type</key>

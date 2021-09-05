@@ -2,15 +2,12 @@ import UIKit
 
 protocol ___VARIABLE_sceneName___SceneDisplayLogic: class {
     /// Whole view update handler.
-    func display(viewModel: ___VARIABLE_sceneName___Scene.ViewModel)
+    func display(_ initialSetup: ___VARIABLE_sceneName___Scene.InitialSetup)
     /// Generic method for handling small updates
-    func display(update: ___VARIABLE_sceneName___Scene.Update)
+    func display(_ update: ___VARIABLE_sceneName___Scene.Update)
 
     // More specialized update method. More complex update logic should be implemented in the separate method
-    //func display(update: ___VARIABLE_sceneName___Scene.Update.SomeUpdate)
-
-    /// This method is implemented by the UIVIewController, and might be used for simplicity. However in accordance with the programming art it's the ruter who should be responsible for navigation
-    //func dismiss(animated: Bool, completion: (() -> Void)?)
+    //func display(_ update: ___VARIABLE_sceneName___Scene.Update.<#Update#>)
 }
 
 protocol ___VARIABLE_sceneName___SceneRouting: class {
@@ -24,11 +21,45 @@ class ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneDataS
 
     // MARK: - Dependencies (services, managers, helpers, formatters, workers, etc.)
 
-    //var worker: ___VARIABLE_sceneName___SceneWorker?
+    // ...
 
     // MARK: - Data Storing
 
-    //var name: String = ""
+    var screenTitle: String?
+    /// Indicates that the data should be reloaded from the local storage
+    var isReloadRequired: Bool = false
+    /// Indicates that the data should be updated from the remote storage
+    var isUpdateRequired: Bool = false
+
+    // MARK: - Lifecycle
+
+    typealias SceneData = <#Data#>
+    private var data: SceneData?
+
+    private func viewDidLoad() {
+        //guard let view = view else {
+        //    assertionFailure("[___VARIABLE_sceneName___SceneViewModel] View not set.")
+        //    return
+        //}
+        guard let view = view.assertExistence(propertyName: "view") else { return }
+        let initialSetup = ___VARIABLE_sceneName___Scene.InitialSetup(screenTitle: screenTitle)
+        view.display(initialSetup)
+        refresh(fromRemoteStorage: true)
+    }
+
+    private func viewWillAppear() {
+        if isReloadRequired || isUpdateRequired {
+            refresh(fromRemoteStorage: isUpdateRequired)
+        }
+    }
+
+    private func refresh(fromRemoteStorage: Bool) {
+
+    }
+
+    private func didReceiveData(_ data: SceneData) {
+        // display data
+    }
 }
 
 // MARK: - Business Logic
@@ -36,20 +67,15 @@ class ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneDataS
 extension ___VARIABLE_sceneName___SceneViewModel: ___VARIABLE_sceneName___SceneBusinessLogic {
     func handle(event: ___VARIABLE_sceneName___Scene.LifecycleEvent) {
         switch event {
-        case .viewDidLoad:
-            let viewModel = ___VARIABLE_sceneName___Scene.ViewModel()
-            view?.display(viewModel: viewModel)
-
-        //case let .deselectRow(at: indexPath):
-        //    view?.display(update: .deselectRow(at: indexPath, animated: true))
-
-        //default: break
+        case .viewDidLoad: viewDidLoad()
+        case .viewWillAppear: viewWillAppear()
         }
     }
 
     func handle(action: ___VARIABLE_sceneName___Scene.UserAction) {
-        //assert(worker != nil, "___VARIABLE_sceneName___SceneWorker is not loaded.")
-        //worker?.doSomeWork()
-        //presenter?.present(response: .deselectRow(at: ...))
+        switch action {
+        case .refresh: refresh(fromRemoteStorage: true)
+        case .backButton: router?.route(to: .exit)
+        }
     }
 }

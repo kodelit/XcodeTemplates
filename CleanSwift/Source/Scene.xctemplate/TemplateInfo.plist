@@ -11,142 +11,168 @@
 	<key>Options</key>
 	<array>
 		<dict>
-			<key>Default</key>
-			<string>Some</string>
-			<key>Description</key>
-			<string>The name of the scene to create</string>
 			<key>Identifier</key>
 			<string>sceneName</string>
 			<key>Name</key>
 			<string>New Scene Name:</string>
+			<key>Description</key>
+			<string>The name of the scene to create</string>
 			<key>NotPersisted</key>
 			<true/>
 			<key>Required</key>
 			<true/>
 			<key>Type</key>
 			<string>text</string>
+			<key>Default</key>
+			<string>Some</string>
 		</dict>
 		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___</string>
 			<key>Identifier</key>
 			<string>productName</string>
 			<key>Type</key>
 			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___</string>
 		</dict>
 		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneAssembler</string>
-			<key>Description</key>
-			<string>The assembler file name</string>
-			<key>Identifier</key>
-			<string>assemblerFileName</string>
-			<key>Name</key>
-			<string>Assembler File Name:</string>
-			<key>Required</key>
-			<true/>
-			<key>Type</key>
-			<string>static</string>
-		</dict>
-		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneViewController</string>
-			<key>Description</key>
-			<string>The view controller name</string>
 			<key>Identifier</key>
 			<string>viewControllerName</string>
 			<key>Name</key>
-			<string>View Controller Name:</string>
+			<string>Controller Name:</string>
+			<key>Description</key>
+			<string>The view controller name</string>
 			<key>Required</key>
 			<true/>
 			<key>Type</key>
 			<string>static</string>
-		</dict>
-		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneInteractor</string>
-			<key>Description</key>
-			<string>The interactor name</string>
-			<key>Identifier</key>
-			<string>interactorName</string>
-			<key>Name</key>
-			<string>Interactor Name:</string>
-			<key>Required</key>
+			<string>___VARIABLE_sceneName:identifier___SceneViewController</string>
+			<key>NotPersisted</key>
 			<true/>
-			<key>Type</key>
-			<string>static</string>
 		</dict>
 		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___ScenePresenter</string>
-			<key>Description</key>
-			<string>The presenter name</string>
-			<key>Identifier</key>
-			<string>presenterName</string>
-			<key>Name</key>
-			<string>Presenter Name:</string>
-			<key>Required</key>
-			<true/>
-			<key>Type</key>
-			<string>static</string>
-		</dict>
-		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___Router</string>
-			<key>Description</key>
-			<string>The router name</string>
 			<key>Identifier</key>
 			<string>routerName</string>
 			<key>Name</key>
 			<string>Router Name:</string>
-			<key>Required</key>
-			<true/>
+			<key>Description</key>
+			<string>The router name</string>
 			<key>Type</key>
 			<string>static</string>
-		</dict>
-		<dict>
 			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneWorker</string>
-			<key>Description</key>
-			<string>The worker name</string>
-			<key>Identifier</key>
-			<string>workerName</string>
-			<key>Name</key>
-			<string>Worker Name:</string>
-			<key>Required</key>
+			<string>___VARIABLE_sceneName:identifier___SceneRouter</string>
+			<key>NotPersisted</key>
 			<true/>
-			<key>Type</key>
-			<string>static</string>
 		</dict>
 		<dict>
-			<key>Default</key>
-			<string>___VARIABLE_sceneName:identifier___SceneModels</string>
-			<key>Description</key>
-			<string>The model file name</string>
 			<key>Identifier</key>
 			<string>modelFileName</string>
 			<key>Name</key>
-			<string>Model File Name:</string>
-			<key>Required</key>
-			<true/>
+			<string>Models File Name:</string>
+			<key>Description</key>
+			<string>The models file name</string>
 			<key>Type</key>
 			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___SceneModels.swift</string>
+			<key>NotPersisted</key>
+			<true/>
 		</dict>
 		<dict>
-			<key>Default</key>
-			<string>UIViewController</string>
+			<key>Identifier</key>
+			<string>viewModelName</string>
+			<key>Name</key>
+			<string>View Model Name (if required):</string>
 			<key>Description</key>
-			<string>What view controller class to subclass for the new scene</string>
-			<key>FallbackHeader</key>
-			<string>#import &lt;UIKit/UIKit.h&gt;</string>
+			<string>The view model name</string>
+			<key>RequiredOptions</key>
+			<dict>
+				<key>logicTypeChoice</key>
+				<array>
+					<string>ViewModel</string>
+				</array>
+			</dict>
+			<key>Type</key>
+			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___SceneViewModel</string>
+			<key>NotPersisted</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>interactorName</string>
+			<key>Name</key>
+			<string>Interactor Name (if required):</string>
+			<key>Description</key>
+			<string>The interactor name</string>
+			<key>RequiredOptions</key>
+			<dict>
+				<key>logicTypeChoice</key>
+				<array>
+					<string>Presenter-Interactor</string>
+				</array>
+			</dict>
+			<key>Type</key>
+			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___SceneInteractor</string>
+			<key>NotPersisted</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>presenterName</string>
+			<key>Name</key>
+			<string>Presenter Name (if required):</string>
+			<key>Description</key>
+			<string>The presenter name</string>
+			<key>RequiredOptions</key>
+			<dict>
+				<key>logicTypeChoice</key>
+				<array>
+					<string>Presenter-Interactor</string>
+				</array>
+			</dict>
+			<key>Type</key>
+			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___ScenePresenter</string>
+			<key>NotPersisted</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>workerName</string>
+			<key>Name</key>
+			<string>Worker Name (if required):</string>
+			<key>Description</key>
+			<string>The worker name</string>
+			<key>RequiredOptions</key>
+			<dict>
+				<key>Worker</key>
+				<array>
+					<string>true</string>
+				</array>
+			</dict>
+			<key>Type</key>
+			<string>static</string>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___SceneWorker</string>
+			<key>NotPersisted</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Identifier</key>
 			<string>viewControllerSubclass</string>
 			<key>Name</key>
 			<string>Subclass of:</string>
-			<key>NotPersisted</key>
-			<true/>
+			<key>Description</key>
+			<string>What view controller class to subclass for the new scene</string>
+			<key>FallbackHeader</key>
+			<string>#import &lt;UIKit/UIKit.h&gt;</string>
 			<key>Required</key>
-			<string>YES</string>
+			<true/>
 			<key>Type</key>
 			<string>class</string>
 			<key>Values</key>
@@ -155,6 +181,45 @@
 				<string>UITableViewController</string>
 				<string>UICollectionViewController</string>
 			</array>
+			<key>Default</key>
+			<string>UIViewController</string>
+			<key>NotPersisted</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>logicTypeChoice</string>
+			<key>Required</key>
+			<true/>
+			<key>Name</key>
+			<string>Presentation and Business logic:</string>
+			<key>Description</key>
+			<string>Layers of the logic. Combined - one view model file for both layers, Separated: presenter (presentation layer), interactor (buisiness logic)</string>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Default</key>
+			<string>ViewModel</string>
+			<key>Values</key>
+			<array>
+				<string>ViewModel</string>
+				<string>Presenter-Interactor</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>Worker</string>
+			<key>Name</key>
+			<string>Also create example worker file.</string>
+			<key>Description</key>
+			<string>Create example worker file.</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>checkbox</string>
+			<key>Default</key>
+			<string>false</string>
+			<key>NotPersisted</key>
+			<true/>
 		</dict>
 	</array>
 	<key>Platforms</key>

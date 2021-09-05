@@ -5,10 +5,16 @@
       location = "group:SwiftTemplatesInstallScript/SwiftTemplatesInstallScript.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/kodelit/REPOS/CleanSwiftTemplates/Install"
+      location = "group:Install"
       assignedFileDataType = "public.swift-source">
    </FileRef>
    <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
       location = "group:CleanSwift">
+   </FileRef>
+   <FileRef
+      location = "group:CodeBase">
    </FileRef>
 </Workspace>
