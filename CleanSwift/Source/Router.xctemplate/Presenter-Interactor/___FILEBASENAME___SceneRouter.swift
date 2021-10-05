@@ -2,6 +2,10 @@ import UIKit
 
 class ___VARIABLE_productName___SceneRouter: NSObject {
     weak var viewController: UIViewController?
+
+    /// Data storage of the scene.
+    ///
+    /// - note: Please keep in mind that `dataStorage` won't be vanished by default when the `viewController` is removed, but when new view controller will be created with `getSceneViewController()` it will also create a new data storage which will override the previous one during the proces of scene assembling.
     var dataStore: ___VARIABLE_productName___SceneDataStoring?
 
     /// Loads or returns already loaded controller.
@@ -66,6 +70,19 @@ protocol ___VARIABLE_productName___SceneDataStoring {
 extension ___VARIABLE_productName___SceneRouter: ___VARIABLE_productName___SceneRouting {
     func route(to destination: ___VARIABLE_productName___Scene.Destination) {
         switch destination {
+        //case .<#nextScreen#>:
+        //    let targetRouter = <#Next#>SceneRouter()
+        //    guard let targetViewController = targetRouter.getSceneViewController(),
+        //          var targetDataStore = targetRouter.dataStore else {
+        //        return
+        //    }
+        //    // Data Passing
+        //    targetDataStore.screenTitle = "<Some optional title>"
+        //
+        //    targetRouter.sceneExitHandler = { [weak self] (_) in
+        //        self?.viewController?.navigationController?.popViewController(animated: true)
+        //    }
+        //    viewController?.navigationController?.pushViewController(targetViewController, animated: true)
         case .exit:
             guard let viewController = viewController else { return }
             sceneExitHandler?(viewController)

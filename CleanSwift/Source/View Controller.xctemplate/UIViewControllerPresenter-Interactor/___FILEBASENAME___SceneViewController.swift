@@ -135,29 +135,38 @@ extension ___VARIABLE_sceneName___SceneViewController: ___VARIABLE_sceneName___S
 // MARK: - Xcode Preview
 // swiftlint:disable type_name
 
-//#if canImport(SwiftUI) && DEBUG
-//import SwiftUI
-//
-//@available(iOS 13.0, tvOS 13.0, *)
-//struct ___VARIABLE_sceneName___SceneViewControllerRepresentable: UIViewControllerRepresentable {
-//    typealias ViewController = ___VARIABLE_sceneName___SceneViewController
-//
-//    func makeUIViewController(context: Context) -> ViewController {
-//        // let bundle = Bundle(for: ViewController.self)
-//        // let storyboard = UIStoryboard(name: "___VARIABLE_sceneName___", bundle: bundle)
-//        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___SceneViewController")
-//        return ViewController(nibName: nil, bundle: nil)
-//    }
-//
-//    func updateUIViewController(_ uiViewController: ViewController, context: Context) {}
-//}
-//
-//@available(iOS 13.0, tvOS 13.0, *)
-//struct UIKit___VARIABLE_sceneName___SceneViewControllerProvider: PreviewProvider {
-//    static var previews: ___VARIABLE_sceneName___SceneViewControllerRepresentable {
-//        ___VARIABLE_sceneName___SceneViewControllerRepresentable()
-//    }
-//}
-//#endif
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, tvOS 13.0, *)
+struct ___VARIABLE_sceneName___SceneViewControllerRepresentable: UIViewControllerRepresentable {
+    typealias ViewController = ___VARIABLE_sceneName___SceneViewController
+
+    func makeUIViewController(context: Context) -> ViewController {
+        let router = ___VARIABLE_sceneName___SceneRouter()
+        guard let viewControler = router.getSceneViewController() else {
+            fatalError("___VARIABLE_sceneName___SceneRouter could not load the view controler")
+        }
+        return viewControler
+
+        // or
+        // let bundle = Bundle(for: ViewController.self)
+        // let storyboard = UIStoryboard(name: "___VARIABLE_sceneName___Scene", bundle: bundle)
+        // return storyboard.instantiateViewController(identifier: "___VARIABLE_sceneName___SceneViewController")
+
+        // or
+        //return ViewController(nibName: nil, bundle: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: ViewController, context: Context) {}
+}
+
+@available(iOS 13.0, tvOS 13.0, *)
+struct UIKit___VARIABLE_sceneName___SceneViewControllerProvider: PreviewProvider {
+    static var previews: ___VARIABLE_sceneName___SceneViewControllerRepresentable {
+        ___VARIABLE_sceneName___SceneViewControllerRepresentable()
+    }
+}
+#endif
 
 // swiftlint:enable type_name
